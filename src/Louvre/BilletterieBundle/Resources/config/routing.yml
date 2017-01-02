@@ -1,3 +1,11 @@
 louvre_billetterie_homepage:
     path:     /
-    defaults: { _controller: LouvreBilletterieBundle:Default:index }
+    defaults: { _controller: LouvreBilletterieBundle:Orders:index }
+
+louvre_billetterie_infos:
+    path:     /infos
+    defaults: { _controller: LouvreBilletterieBundle:Orders:infos }
+
+louvre_billetterie_commande:
+    path:     /commande
+    defaults: { _controller: LouvreBilletterieBundle:Orders:commande }

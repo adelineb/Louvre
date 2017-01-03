@@ -2,38 +2,53 @@
 
 namespace Louvre\BilletterieBundle\Controller;
 
+use Louvre\BilletterieBundle\Entity\Billet;
+use Louvre\BilletterieBundle\Entity\Client;
 use Louvre\BilletterieBundle\Entity\Commande;
+use Louvre\BilletterieBundle\Entity\Tarif;
+use Louvre\BilletterieBundle\Form\BilletType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\RadioType;
-
-
 use Symfony\Component\HttpFoundation\Request;
 
 class OrdersController extends Controller
 {
     public function indexAction(Request $request)
     {
-        //return new Response("MON HELLO WORLD de INDEX");
-        //return $this->render('LouvreBilletterie:Orders:index');
+        $billet = new Billet();
 
-        $orders = new Commande();
+        $form = $this->get('form.factory')->create(BilletType::class, $billet);
 
-        $formBuilder = $this->get('form.factory')->createBuilder($orders);
+        return $this->render('LouvreBilletterieBundle:Orders:index.html.twig', array(
+            'form' => $form->createView(),
+        ));
 
-        $formBuilder
-            ->add('date',               DateType::class)
-            ->add('Visite à la ',       RadioType::class)
-            ->add('Nombre de billets ', TextType::class)
-        ;
-        $form = $formBuilder->getForm();
+        /*$commande = new Commande();
+            $commande->setEmail('azerty@tyui.fr');
 
-        $form->handleRequest($request);
+            $client = new Client();
+            $client->setNom('Dupont');
+            $client->setPrenom('Arnaud');
+            $client->setPays('FR');
+            //$client->setDateNaissance('01/01/1980');
 
-        $content = $this->get('templating')->render('LouvreBilletterieBundle:Orders:index.html.twig');
-        return new Response($content);
+            $billet = new Billet();
+            //$billet->setDate('04/01/2017');
+            $billet->setClient($client);
+            $billet->setCommande($commande);
+            $billet->setPrixBillet('16');
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($commande);
+            $em->persist($billet);
+            $em->persist($client);
+
+            $em->flush();*/
+
+
+        /* $content = $this->get('templating')->render('LouvreBilletterieBundle:Orders:index.html.twig');
+         return new Response($content);*/
+
     }
 
     public function infosAction()

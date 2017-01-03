@@ -52,6 +52,10 @@ class Billet
      */
     private $commande;
 
+    public function __construct()
+    {
+        $this->date = new \Datetime();
+    }
 
     /**
      * Get id
@@ -94,7 +98,7 @@ class Billet
      *
      * @return Billet
      */
-    public function setDate($date)
+    public function setDate(\Datetime $date)
     {
         $this->date = $date;
 

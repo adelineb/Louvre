@@ -50,9 +50,15 @@ class Client
     private $dateNaissance;
 
     /**
-     * @ORM\OneToOne(targetEntity="Louvre\BilletterieBundle\Entity\tarif", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="Louvre\BilletterieBundle\Entity\Tarif", cascade={"persist"})
      */
     private $tarif;
+
+
+    public function __construct()
+    {
+        $this->dateNaissance = new \Datetime();
+    }
 
     /**
      * Get id
@@ -143,7 +149,7 @@ class Client
      *
      * @return Client
      */
-    public function setDateNaissance($dateNaissance)
+    public function setDateNaissance(\Datetime $dateNaissance)
     {
         $this->dateNaissance = $dateNaissance;
 

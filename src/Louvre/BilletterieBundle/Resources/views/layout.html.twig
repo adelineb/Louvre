@@ -9,14 +9,45 @@
     {% block stylesheets %}
         {# On charge le CSS de bootstrap depuis le site directement #}
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="{{ asset('css/main.css') }}" />
     {% endblock %}
 
 </head>
 
 <body>
     <div class="container">
-        {% block body %}
-        {% endblock %}
+        <header class="row">
+            <div class="col-sm-4 text-center">
+                <a href ="/" title="Accueil">
+                    <img src = "../public/images/logo.jpg" alt="Logo Louvre">
+                </a>
+            </div>
+            <div class="col-sm-8 text-center">
+                <h1>Musée du Louvre</h1>
+                <h2>Billetterie en ligne</h2>
+            </div>
+        </header>
+
+        <ol class="breadcrumb">
+            <li>Date de la visite</li>
+            <li>Informations</li>
+            <li>Confirmation & Paiement</li>
+        </ol>
+
+        <section class="row">
+            <main class="col-sm-9">
+                {% block body %}
+                {% endblock %}
+            </main>
+
+            <aside class="col-sm-3">
+                Votre panier
+            </aside>
+        </section>
+        <footer class="row text-center">
+            Copyright © 2017 - Adeline BARRÉ - Tous droits réservés<br/>
+            <a href="/mentions-legales" title="Mentions légales">Mentions légales</a>
+        </footer>
     </div>
 </body>
 </html>

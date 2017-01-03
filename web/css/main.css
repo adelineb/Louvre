@@ -1,0 +1,37 @@
+body
+{
+    margin: 0;
+    background: url("../images/louvre.jpg") no-repeat;
+    background-size: 100% auto;
+}
+
+header, footer, .breadcrumb, .col-sm-9, .col-sm-3 {
+    background-color: #555555;
+    border: 2px solid black;
+    opacity: 0.8;
+    color: white;
+}
+
+
+@media (min-width: 1200px) {
+    .container {
+        width: 1170px;
+    }
+}
+
+@media (min-width: 768px) {
+    .col-sm-8 {
+        width: 66.66666667%;
+        float: left;
+    }
+}
+
+@media (min-width: 768px) {
+    .col-sm-9 {
+        width: 75%;
+    }
+}
+
+header, .breadcrumb, section {
+    margin-bottom: 10px;
+}

@@ -20,7 +20,7 @@ class BilletType extends AbstractType
         $builder
             ->add('date',               DateTimeType::class)
             ->add('typebillet',         CheckboxType::class)
-            //->add('Nombredebillet',   IntegerType::class)
+            //->add('Nombredebillet',     IntegerType::class)
             ->add('save',               SubmitType::class)
         ;
     }

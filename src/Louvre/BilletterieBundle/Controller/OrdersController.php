@@ -21,6 +21,32 @@ class OrdersController extends Controller
 
         return $this->render('LouvreBilletterieBundle:Orders:index.html.twig', array(
             'form' => $form->createView(),
+
+        /*$commande = new Commande();
+    $commande->setEmail('azerty@tyui.fr');
+
+    $client = new Client();
+    $client->setNom('Dupont');
+    $client->setPrenom('Arnaud');
+    $client->setPays('FR');
+    //$client->setDateNaissance('01/01/1980');
+
+    $billet = new Billet();
+    //$billet->setDate('04/01/2017');
+    $billet->setClient($client);
+    $billet->setCommande($commande);
+    $billet->setPrixBillet('16');
+
+    $em = $this->getDoctrine()->getManager();
+    $em->persist($commande);
+    $em->persist($billet);
+    $em->persist($client);
+
+    $em->flush();*/
+
+
+        /* $content = $this->get('templating')->render('LouvreBilletterieBundle:Orders:index.html.twig');
+         return new Response($content);*/
         ));
 
         /*$commande = new Commande();

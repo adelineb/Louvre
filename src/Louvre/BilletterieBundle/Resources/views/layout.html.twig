@@ -36,12 +36,13 @@
 
         <section class="row">
             <main class="col-sm-9">
-                {% block body %}
+                {% block main %}
                 {% endblock %}
             </main>
 
             <aside class="col-sm-3">
-                Votre panier
+                {% block aside %}
+                {% endblock %}
             </aside>
         </section>
         <footer class="row text-center">

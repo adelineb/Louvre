@@ -1,1 +1,17 @@
-MON HELLO WORLD de INFOS de TWIG
+{% extends "LouvreBilletterieBundle::layout.html.twig" %}
+
+{% block title %}
+    Billetterie - {{ parent() }}
+{% endblock %}
+
+{% block main %}
+
+    <fieldset>
+        <legend>Informations visiteurs</legend>
+        {{ form(form) }}
+    </fieldset>
+{% endblock %}
+{% block aside %}
+    <h4>Votre panier</h4>
+{% endblock %}
+

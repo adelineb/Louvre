@@ -3,14 +3,15 @@
 namespace Louvre\BilletterieBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class BilletType extends AbstractType
+
+class ClientType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -18,10 +19,13 @@ class BilletType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('date',               DateTimeType::class)
-            ->add('typebillet',         CheckboxType::class)
-            //->add('Nombredebillet',     IntegerType::class)
+            ->add('nom',            TextType::class)
+            ->add('prenom',         TextType::class)
+            ->add('pays',           TextType::class)
+            ->add('date_Naissance',  DateTimeType::class)
+            //->add('Tarif_réduit',    checkboxType::class)
             ->add('Etape suivante',     SubmitType::class)
+            ->add('Etape précédente',   SubmitType::class)
             ->add('Annuler',            SubmitType::class)
         ;
     }
@@ -32,7 +36,7 @@ class BilletType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Louvre\BilletterieBundle\Entity\Billet'
+            'data_class' => 'Louvre\BilletterieBundle\Entity\Client'
         ));
     }
 }

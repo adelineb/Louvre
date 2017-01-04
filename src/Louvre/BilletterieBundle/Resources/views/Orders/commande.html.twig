@@ -1,1 +1,16 @@
-MON HELLO WORLD de COMMANDE de TWIG
+{% extends "LouvreBilletterieBundle::layout.html.twig" %}
+
+{% block title %}
+    Billetterie - {{ parent() }}
+{% endblock %}
+
+{% block main %}
+
+    <fieldset>
+        <legend>Vérifier votre commande & Paiement</legend>
+        {{ form(form) }}
+    </fieldset>
+{% endblock %}
+{% block aside %}
+    <h4>Votre panier</h4>
+{% endblock %}

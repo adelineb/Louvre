@@ -4,9 +4,14 @@
     Billetterie - {{ parent() }}
 {% endblock %}
 
-{% block body %}
+{% block main %}
 
-    Choisissez une date
+    <fieldset>
+        <legend>Choisissez une date</legend>
     {{ form(form) }}
-
+    </fieldset>
 {% endblock %}
+{% block aside %}
+    <h4>Votre panier</h4>
+{% endblock %}
+

@@ -10,14 +10,23 @@ header, footer, .breadcrumb, .col-sm-9, .col-sm-3 {
     border: 2px solid black;
     opacity: 0.8;
     color: white;
+    border-radius: 5px;
 }
 
+button {
+    color: black;
+    float: right;
+    margin-left: 5px;
+}
 
-@media (min-width: 1200px) {
+legend {
+    color : white;
+}
+/*@media (min-width: 1200px) {
     .container {
         width: 1170px;
     }
-}
+}*/
 
 @media (min-width: 768px) {
     .col-sm-8 {
@@ -31,6 +40,20 @@ header, footer, .breadcrumb, .col-sm-9, .col-sm-3 {
         width: 75%;
     }
 }
+
+@media (max-width: 767px) {
+    /*section {
+        display :flex;
+    }*/
+    main {
+        order: 2;
+    }
+    aside {
+        order: 1;
+    }
+}
+
+
 
 header, .breadcrumb, section {
     margin-bottom: 10px;

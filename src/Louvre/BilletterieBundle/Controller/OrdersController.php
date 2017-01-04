@@ -7,6 +7,8 @@ use Louvre\BilletterieBundle\Entity\Client;
 use Louvre\BilletterieBundle\Entity\Commande;
 use Louvre\BilletterieBundle\Entity\Tarif;
 use Louvre\BilletterieBundle\Form\BilletType;
+use Louvre\BilletterieBundle\Form\ClientType;
+use Louvre\BilletterieBundle\Form\CommandeType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -81,16 +83,31 @@ class OrdersController extends Controller
     {
         //return new Response("MON HELLO WORLD de INFOS");
         //return $this->render('LouvreBilletterieBundle:Orders:infos');
-        $content = $this->get('templating')->render('LouvreBilletterieBundle:Orders:infos.html.twig');
-        return new Response($content);
+
+        $client = new Client();
+
+        $form = $this->get('form.factory')->create(ClientType::class, $client);
+
+        return $this->render('LouvreBilletterieBundle:Orders:infos.html.twig', array(
+            'form' => $form->createView(),
+        ));
+
+        //$content = $this->get('templating')->render('LouvreBilletterieBundle:Orders:infos.html.twig');
+        //return new Response($content);
     }
 
     public function commandeAction()
     {
-        //return new Response("MON HELLO WORLD de COMMANDE");
-        //return $this->render('LouvreBilletterieBundle:Orders:commande');
-        $content = $this->get('templating')->render('LouvreBilletterieBundle:Orders:commande.html.twig');
-        return new Response($content);
+        $commande = new Commande();
+
+        $form = $this->get('form.factory')->create(CommandeType::class, $commande);
+
+        return $this->render('LouvreBilletterieBundle:Orders:commande.html.twig', array(
+            'form' => $form->createView(),
+        ));
+
+        /*$content = $this->get('templating')->render('LouvreBilletterieBundle:Orders:commande.html.twig');
+        return new Response($content);*/
 
     }
 }

@@ -17,10 +17,11 @@ class BilletType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        dump($builder);
         $builder
             ->add('date',               DateTimeType::class)
             ->add('typebillet',         CheckboxType::class)
-            //->add('Nombredebillet',     IntegerType::class)
+            ->add('nbbillet',           IntegerType::class)
             ->add('Etape suivante',     SubmitType::class)
             ->add('Annuler',            SubmitType::class)
         ;

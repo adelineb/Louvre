@@ -18,12 +18,17 @@ class ClientType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        for ($i=0; $i<2; $i++ ){
         $builder
-            ->add('nom',            TextType::class)
-            ->add('prenom',         TextType::class)
-            ->add('pays',           TextType::class)
-            ->add('date_Naissance',  DateTimeType::class)
+            ->add('nom'.$i,            TextType::class)
+            ->add('prenom'.$i,         TextType::class)
+            ->add('pays'.$i,           TextType::class)
+            ->add('date_Naissance'.$i,  DateTimeType::class)
             //->add('Tarif_réduit',    checkboxType::class)
+        ;
+        }
+
+        $builder
             ->add('Etape suivante',     SubmitType::class)
             ->add('Etape précédente',   SubmitType::class)
             ->add('Annuler',            SubmitType::class)

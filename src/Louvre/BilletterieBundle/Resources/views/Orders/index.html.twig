@@ -6,10 +6,34 @@
 
 {% block main %}
 
-    <fieldset>
-        <legend>Choisissez une date</legend>
-    {{ form(form) }}
-    </fieldset>
+    <div class="well">
+        {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+
+        {# Les erreurs générales du formulaire. #}
+        {{ form_errors(form) }}
+
+        <fieldset>
+                <legend>Choisissez une date</legend>
+                <div id="datepicker">
+                    <label>Date de la visite:</label>
+                    <input type="text" required="required" class="datepicker hidden"  data-date-format="dd-MM-yyyy">
+                </div>
+            <div class="form-group">
+                <label class="required">Visite</label>
+                    {{ form_widget(form.typebillet) }}
+            </div>
+            <div class="form-group">
+                <label class="required">Nombre de billets</label>
+                {{ form_widget(form.nbbillet, {'attr': {'required': 'required'}}) }}
+            </div>
+        </fieldset>
+
+        <div>
+            {{ form_widget(form.Etapesuivante, {'attr': {'class': 'btn btn-default', 'action': ''}}) }}
+            {{ form_widget(form.Annuler, {'attr': {'value': 'reset', 'class': 'btn btn-danger'}}) }}
+        <!--<button type="submit" class="btn btn-danger" name="flow_booking_transition" value="reset" formnovalidate="formnovalidate">Annuler</button>-->
+        </div>
+    </div>
 {% endblock %}
 {% block aside %}
     <h4>Votre panier</h4>

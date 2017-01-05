@@ -2,7 +2,10 @@
 
 namespace Louvre\BilletterieBundle\Controller;
 
+use Louvre\BilletterieBundle\Form\InfosType;
 use Louvre\BilletterieBundle\Model\BilletModel;
+use Louvre\BilletterieBundle\Model\ClientModel;
+use Louvre\BilletterieBundle\Model\CommandeModel;
 use Louvre\BilletterieBundle\Entity\Client;
 use Louvre\BilletterieBundle\Entity\Commande;
 use Louvre\BilletterieBundle\Entity\Tarif;
@@ -21,10 +24,20 @@ class OrdersController extends Controller
 
         $form = $this->get('form.factory')->create(BilletType::class, $billet);
 
+        /*if ($request->isMethod('POST')) {
+            $form->handleRequest($request);
+            if ($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($billet);
+                $em->flush();
+
+            };*/
+
         return $this->render('LouvreBilletterieBundle:Orders:index.html.twig', array(
             'form' => $form->createView(),
         ));
 
+;
         /*$commande = new Commande();
             $commande->setEmail('azerty@tyui.fr');
 
@@ -35,7 +48,7 @@ class OrdersController extends Controller
             $client->setDateNaissance(new \DateTime('1980-01-01'));
 
             $billet = new Billet();
-            //$billet->setDate('04/01/2017');
+            //$billet->setDate(new \DateTime('04/01/2017'));
             $billet->setClient($client);
             $billet->setCommande($commande);
             $billet->setPrixBillet('16');
@@ -55,13 +68,12 @@ class OrdersController extends Controller
 
     public function infosAction(Request $request)
     {
-        //return new Response("MON HELLO WORLD de INFOS");
-        //return $this->render('LouvreBilletterieBundle:Orders:infos');
         $session = $this->get('session');
         $session->set('nombrebillet',2);
-        $client = new Client();
 
-        $form = $this->get('form.factory')->create(ClientType::class, $client);
+        $client = new ClientModel();
+
+        $form = $this->get('form.factory')->create(InfosType::class, $client);
 
         dump($form);
         return $this->render('LouvreBilletterieBundle:Orders:infos.html.twig', array(
@@ -73,7 +85,7 @@ class OrdersController extends Controller
 
     public function commandeAction()
     {
-        $commande = new Commande();
+        $commande = new CommandeModel();
 
         $form = $this->get('form.factory')->create(CommandeType::class, $commande);
 

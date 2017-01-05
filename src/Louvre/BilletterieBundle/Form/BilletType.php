@@ -3,8 +3,9 @@
 namespace Louvre\BilletterieBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\RadioType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -20,9 +21,10 @@ class BilletType extends AbstractType
         dump($builder);
         $builder
             ->add('date',               DateTimeType::class)
-            ->add('typebillet',         CheckboxType::class)
+            ->add('typebillet',         ChoiceType::class, array(
+                'choices' =>array('Journée'=>'1', 'Demi-journée'=>'2'), 'expanded' => true))
             ->add('nbbillet',           IntegerType::class)
-            ->add('Etape suivante',     SubmitType::class)
+            ->add('Etapesuivante',      SubmitType::class, array('label'=>'Etape suivante >'))
             ->add('Annuler',            SubmitType::class)
         ;
     }
@@ -33,7 +35,7 @@ class BilletType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Louvre\BilletterieBundle\Entity\Billet'
+            'data_class' => 'Louvre\BilletterieBundle\Model\BilletModel'
         ));
     }
 }

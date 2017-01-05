@@ -9,6 +9,13 @@
     <fieldset>
         <legend>Vérifier votre commande & Paiement</legend>
         {{ form(form) }}
+
+        <div>
+            {{ form_widget(form.Etapesuivante, {'attr': {'class': 'btn btn-default'}}) }}
+            {{ form_widget(form.Annuler, {'attr': {'value': 'reset', 'class': 'btn btn-danger'}}) }}
+            {{ form_widget(form.Etapeprec, {'attr': {'class': 'btn btn-default'}}) }}
+            <!--<button type="submit" class="btn btn-danger" name="flow_booking_transition" value="reset" formnovalidate="formnovalidate">Annuler</button>-->
+        </div>
     </fieldset>
 {% endblock %}
 {% block aside %}

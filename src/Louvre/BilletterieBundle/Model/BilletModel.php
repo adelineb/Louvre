@@ -55,7 +55,7 @@ class BilletModel
         return $this;
     }
 
-    public function getnbbillet()
+    public function getNbbillet()
     {
         return $this->nbbillet;
     }

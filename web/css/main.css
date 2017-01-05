@@ -2,10 +2,11 @@ body
 {
     margin: 0;
     background: url("../images/louvre.jpg") no-repeat;
-    background-size: 100% auto;
+    /*background-size: 100% auto;*/
+    background-size: cover;
 }
 
-header, footer, .breadcrumb, .col-sm-9, .col-sm-3 {
+header, footer, .breadcrumb, .col-sm-3, .well {
     background-color: #555555;
     border: 2px solid black;
     opacity: 0.8;
@@ -13,6 +14,9 @@ header, footer, .breadcrumb, .col-sm-9, .col-sm-3 {
     border-radius: 5px;
 }
 
+.col-sm-4 {
+    padding-top: 20px;
+}
 button {
     color: black;
     float: right;
@@ -22,20 +26,19 @@ button {
 legend {
     color : white;
 }
-/*@media (min-width: 1200px) {
-    .container {
-        width: 1170px;
-    }
-}*/
+
+label {
+    margin-right: 3%;
+}
 
 @media (min-width: 768px) {
     .col-sm-8 {
         width: 66.66666667%;
         float: left;
     }
-}
-
-@media (min-width: 768px) {
+    .well, .col-sm-3 {
+        height: 500px;
+    }
     .col-sm-9 {
         width: 75%;
     }
@@ -51,10 +54,23 @@ legend {
     aside {
         order: 1;
     }
+    .col-sm-3 {
+        height: 60px;
+    }
+    .well {
+        height: 500px;
+    }
 }
-
-
 
 header, .breadcrumb, section {
     margin-bottom: 10px;
+}
+
+
+.datepicker table {
+    color: white;
+}
+
+input, select {
+    color: black;
 }

@@ -3,6 +3,7 @@
 namespace Louvre\BilletterieBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Commande
@@ -28,6 +29,8 @@ class Commande
      */
     private $email;
 
+
+    private $clients;
 
     /**
      * Get id

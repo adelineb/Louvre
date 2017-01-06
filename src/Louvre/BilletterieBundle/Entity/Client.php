@@ -45,7 +45,7 @@ class Client
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date_naissance", type="datetime")
+     * @ORM\Column(name="date_naissance", type="date")
      */
     private $dateNaissance;
 

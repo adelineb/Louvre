@@ -24,18 +24,21 @@ class OrdersController extends Controller
 
         $form = $this->get('form.factory')->create(BilletType::class, $billet);
 
-        /*if ($request->isMethod('POST')) {
-            $form->handleRequest($request);
+        if ($request->isMethod('POST')) {
+            /*$form->handleRequest($request);
             if ($form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($billet);
-                $em->flush();
+                $em->flush();*/
 
-            };*/
+            };
+
+        return $this->redirectToRoute('louvre_billetterie_infos', array('id' => $billet->getId()));
 
         return $this->render('LouvreBilletterieBundle:Orders:index.html.twig', array(
             'form' => $form->createView(),
         ));
+
 
 ;
         /*$commande = new Commande();

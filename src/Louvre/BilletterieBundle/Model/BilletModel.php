@@ -10,6 +10,11 @@ namespace Louvre\BilletterieBundle\Model;
 class BilletModel
 {
     /**
+     * @var int
+     */
+    private $id;
+
+    /**
      * @var \DateTime
      */
     private $date;
@@ -23,6 +28,18 @@ class BilletModel
      * @var \integer
      */
     private $nbbillet;
+
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
 
     public function setDate(\Datetime $date)
     {

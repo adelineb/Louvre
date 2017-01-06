@@ -30,12 +30,36 @@
 
         <div>
             {{ form_widget(form.Etapesuivante, {'attr': {'class': 'btn btn-default', 'action': ''}}) }}
-            {{ form_widget(form.Annuler, {'attr': {'value': 'reset', 'class': 'btn btn-danger'}}) }}
         <!--<button type="submit" class="btn btn-danger" name="flow_booking_transition" value="reset" formnovalidate="formnovalidate">Annuler</button>-->
         </div>
     </div>
 {% endblock %}
 {% block aside %}
     <h4>Votre panier</h4>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/bootstrap-datepicker.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap-datepicker.fr.min.js') }}" charset="UTF-8"></script>
+    <script>
+        $( function() {
+            $( "#datepicker" ).datepicker({
+                altField: "#datepicker",
+                closeText: 'Fermer',
+                prevText: 'Précédent',
+                nextText: 'Suivant',
+                currentText: 'Aujourd\'hui',
+                monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+                monthNamesShort: ['Janv.', 'Févr.', 'Mars', 'Avril', 'Mai', 'Juin', 'Juil.', 'Août', 'Sept.', 'Oct.', 'Nov.', 'Déc.'],
+                dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+                dayNamesShort: ['Dim.', 'Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.'],
+                dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
+                weekHeader: 'Sem.',
+                dateFormat: 'yy-mm-dd'
+            });
+            $.datepicker.setDefaults( $.datepicker.regional[ "fr" ] );
+        } );
+    </script>
 {% endblock %}
 

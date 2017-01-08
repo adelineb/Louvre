@@ -22,7 +22,9 @@ class ClientType extends AbstractType
             ->add('prenom',            TextType::class)
             ->add('pays',              TextType::class)
             ->add('dateNaissance',    DateTimeType::class)
-            ->add('Tarifreduit',      checkboxType::class)
+            ->add('Tarifreduit',      checkboxType::class, array(
+                'required' => false,
+            ))
         ;
    }
     

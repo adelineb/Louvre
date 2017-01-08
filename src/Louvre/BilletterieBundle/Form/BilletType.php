@@ -19,10 +19,7 @@ class BilletType extends AbstractType
     {
         dump($builder);
         $builder
-            ->add('date',               DateType::class, array(
-                'required' => true,
-                'format' => 'dd/MM/yyyy',
-                'attr' => ['class' => 'js-datepicker']))
+            ->add('date',               DateType::class)
             ->add('typebillet',         ChoiceType::class, array(
                 'choices' =>array('Journée'=>'1', 'Demi-journée'=>'2'), 'expanded' => true))
             ->add('nbbillet',           IntegerType::class)

@@ -14,20 +14,20 @@
 
         <fieldset>
             <legend>Informations visiteurs</legend>
-            <div class="form-group">
+            {#<div class="form-group">
                 <label class="required">Nom</label>
                 {{ form_widget(form.nom) }}
             </div>
             <div class="form-group">
                 <label class="required">Prénom</label>
                 {{ form_widget(form.prenom) }}
-            </div>
+            </div>#}
        </fieldset>
 
         <div>
-            {#{{ form_widget(form.Etapesuivante, {'attr': {'class': 'btn btn-default'}}) }}
+            {{ form_widget(form.Etapesuivante, {'attr': {'class': 'btn btn-default'}}) }}
             {{ form_widget(form.Etapeprec, {'attr': {'class': 'btn btn-default'}}) }}
-            {{ form_widget(form.Annuler, {'attr': {'value': 'reset', 'class': 'btn btn-danger'}}) }}#}
+            {{ form_widget(form.Annuler, {'attr': {'value': 'reset', 'class': 'btn btn-danger'}}) }}
         </div>
     </div>
 

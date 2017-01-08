@@ -7,6 +7,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Louvre\BilletterieBundle\Model\ClientModel;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -18,9 +20,9 @@ class InfosType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $client = new ClientModel();
-        $form = $this->get('form.factory')->create(InfosType::class, $client);
         $builder
+            ->add('Clients', CollectionType::class, array(
+                'entry_type' => ClientType::class))
             ->add('Etapesuivante',      SubmitType::class, array('label'=>'Etape suivante >'))
             ->add('Etapeprec',          SubmitType::class, array('label'=>'< Etape précédente'))
             ->add('Annuler',            SubmitType::class)
@@ -33,7 +35,7 @@ class InfosType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Louvre\BilletterieBundle\Model\ClientModel'
+            'data_class' => 'Louvre\BilletterieBundle\Model\ClientsListeModel'
         ));
     }
 }

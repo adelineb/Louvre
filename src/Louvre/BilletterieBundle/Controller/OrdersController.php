@@ -55,7 +55,7 @@ class OrdersController extends Controller
 
     public function infosAction(Request $request)
     {
-        $client = new ClientModel();
+        $client = new ClientsListeModel();
         $form = $this->get('form.factory')->create(InfosType::class, $client);
 
         dump($form);
@@ -64,11 +64,6 @@ class OrdersController extends Controller
             echo('hello');
             $form->handleRequest($request);
             if ($form->isValid()) {
-                $session = $request->getSession();
-                /*$session->set('Nom', $billet->getDate());
-                $session->set('Prénom', $billet->getTypebillet());*/
-                /*$session->set('Nom', 'BARRÉ');
-                $session->set('Prénom', 'Adeline');*/
 
             }
             return $this->redirectToRoute('louvre_billetterie_commande', array());

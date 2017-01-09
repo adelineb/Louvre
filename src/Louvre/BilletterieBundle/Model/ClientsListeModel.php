@@ -17,20 +17,25 @@ class ClientsListeModel
     /**
      * @var \string
      */
-    private $Clients;
+    private $clients;
 
-    public function addClient(ClientModel $client)
+    public function __construct()
     {
-        $this->Clients[] = $client;
+        $this->clients = new ArrayCollection();
     }
 
-    public function removeClient(ClientModel $client)
+    public function addClients(ClientModel $client)
     {
-        $this->Clients->removeElement($client);
+        $this->clients[] = $client;
     }
 
-    public function getClient()
+    public function removeClients(ClientModel $client)
     {
-        return $this->Clients;
+        $this->clients->removeElement($client);
+    }
+
+    public function getClients()
+    {
+        return $this->clients;
     }
 }

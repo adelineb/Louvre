@@ -74,3 +74,14 @@ header, .breadcrumb, section {
 input, select {
     color: black;
 }
+
+table, table th {
+    border-color: black;
+    border-style: solid;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#recapCommande, #recapCommande > thead > tr > th {
+    text-align : center;
+}

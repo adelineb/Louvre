@@ -19,15 +19,17 @@
                     <label>Date de la visite:</label>
                     {{ form_widget(form.date) }}
                 </div>
-            <div class="form-group">
-                <label>Visite</label>
-                    {{ form_widget(form.typebillet) }}
-            </div>
-            <div class="form-group">
-                <label class="required">Nombre de billets</label>
-                {{ form_widget(form.nbbillet, {'attr': {'required': 'required'}}) }}
-            </div>
+
+                <div class="form-group">
+                    <label>Visite</label>
+                        {{ form_widget(form.typebillet) }}
+                </div>
+                <div class="form-group">
+                    <label class="required">Nombre de billets</label>
+                    {{ form_widget(form.nbbillet, {'attr': {'required': 'required'}}) }}
+                </div>
         </fieldset>
+        {{ form(form) }}
 
         <div>
             {{ form_widget(form.Etapesuivante, {'attr': {'class': 'btn btn-default'}}) }}
@@ -43,6 +45,11 @@
 
 {% block javascripts %}
     {{ parent() }}
-
+    <script>
+        $("form.date").datepicker({
+        dateFormat: 'dd/mm/yy',
+        firstDay:1
+        });
+     </script>
 {% endblock %}
 

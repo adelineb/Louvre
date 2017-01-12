@@ -38,6 +38,10 @@ class ClientModel
      */
     private $tarifreduit;
 
+    /**
+     * @var \integer
+     */
+    private $prix;
 
     public function setNom($nom)
     {
@@ -95,6 +99,18 @@ class ClientModel
     }
 
     public function getTarifreduit()
+    {
+        return $this->tarifreduit;
+    }
+
+    public function setPrix($tarifreduit)
+    {
+        $this->tarifreduit = $tarifreduit;
+
+        return $this;
+    }
+
+    public function getPrix()
     {
         return $this->tarifreduit;
     }

@@ -15,6 +15,29 @@
 
         <fieldset>
             <legend>Vérifier votre commande & Paiement</legend>
+
+            <div class="row">
+                <div class="col-xs-12 col-md-6">
+                    <table class="table table-bordered" id="recapCommande">
+                        <thead class="thead-inverse">
+                            <tr>
+                                <th>Nom prénom</th>
+                                <th>Tarif</th>
+                                <th>Prix</th>
+                            </tr>
+                        </thead>
+                        {% set infos = app.session.get('Infos') %}
+                        {% for billet in infos.getClients() %}
+                            <tr>
+                                <td> {{ billet.nom }} {{ billet.prenom }}</td>
+                                <td> </td>
+                                <td> </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+
             <div class="form-group">
                 <label class="required">Paiement</label>
                 {{ form_widget(form.paiement) }}
@@ -35,4 +58,18 @@
 {% endblock %}
 {% block aside %}
     <h4>Votre panier</h4>
+    Visite pour le {{ app.session.get('date_visite')|date("d/m/Y") }}
+    <hr />
+    <!--à partir de-->
+    Nombre de ticket(s) : {{ app.session.get('nb_billet') }}
+
+    {% set infos = app.session.get('Infos') %}
+    {% for billet in infos.getClients() %}
+        <p>{{ billet.nom }}
+        {{ billet.prenom }}</p>
+    {% endfor %}
+
+
+    <hr />
+    Total :
 {% endblock %}

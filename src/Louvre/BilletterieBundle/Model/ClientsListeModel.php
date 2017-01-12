@@ -19,9 +19,9 @@ class ClientsListeModel
      */
     private $clients;
 
-    public function __construct()
+    public function __construct(array $clients)
     {
-        $this->clients = new ArrayCollection();
+        $this->clients = $clients;
     }
 
     public function addClients(ClientModel $client)

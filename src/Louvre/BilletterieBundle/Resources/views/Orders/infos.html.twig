@@ -14,14 +14,15 @@
 
         <fieldset>
             <legend>Informations visiteurs</legend>
-            {#<div class="form-group">
-                <label class="required">Nom</label>
-                {{ form_widget(form.nom) }}
-            </div>
-            <div class="form-group">
-                <label class="required">Prénom</label>
-                {{ form_widget(form.prenom) }}
-            </div>#}
+            {#{% form_theme form _self %}
+            {% block _form_entry_widget %}
+                <tr>
+                    <td>{{ form_widget(form.nom) }}</td>
+                    <td>{{ form_widget(form.prenom) }}</td>
+                </tr>
+            {% endblock %}#}
+            {{ form(form) }}
+
        </fieldset>
 
         <div>
@@ -34,5 +35,10 @@
 {% endblock %}
 {% block aside %}
     <h4>Votre panier</h4>
+        Visite pour le {{ app.session.get('date_visite')|date("d/m/Y") }}
+        <hr />
+        <!--à partir de-->
+        Nombre de ticket(s) : {{ app.session.get('nb_billet') }}
+
 {% endblock %}
 

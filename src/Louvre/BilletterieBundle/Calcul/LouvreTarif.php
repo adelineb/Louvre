@@ -2,22 +2,23 @@
 
 namespace Louvre\BilletterieBundle\Calcul;
 
-use Louvre\BilletterieBundle\Entity\Tarif;
+use Louvre\BilletterieBundle\Repository\TarifRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class LouvreTarif
 {
-    public function calculTarif(Request $request)
+    public function calculTarif($datenaissance)
     {
-        $session = $request->getSession();
+        $date1 = new \DateTime();
+        $interval = $date1->diff($datenaissance);
+        $age = $interval->y;
+        getTarif($age);
+        echo($age);
 
-        $info = $session->get('Infos');
-
-        foreach ($info as $billet) {
-            $datenaiss = $billet->datenaissance;
-            echo($datenaiss);
-        }
+        $listAdverts = $this->getDoctrine()
+            ->getManager()
+            ->getRepository('OCPlatformBundle:Advert')
+            ->getAdverts($page, $nbPerPage)
     }
-
 }

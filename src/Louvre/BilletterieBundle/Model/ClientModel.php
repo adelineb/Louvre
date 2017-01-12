@@ -16,32 +16,32 @@ class ClientModel
     /**
      * @var \string
      */
-    private $nom;
+    public $nom;
 
     /**
      * @var \string
      */
-    private $prenom;
+    public $prenom;
 
     /**
      * @var \string
      */
-    private $pays;
+    public $pays;
 
     /**
      * @var \DateTime
      */
-    private $datenaissance;
+    public $datenaissance;
 
     /**
      * @var \integer
      */
-    private $tarifreduit;
+    public $tarifreduit;
 
     /**
      * @var \integer
      */
-    private $prix;
+    public $prix;
 
     public function setNom($nom)
     {

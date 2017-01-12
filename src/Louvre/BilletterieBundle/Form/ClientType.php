@@ -3,6 +3,7 @@
 namespace Louvre\BilletterieBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -22,7 +23,7 @@ class ClientType extends AbstractType
             ->add('nom',               TextType::class)
             ->add('prenom',            TextType::class)
             ->add('pays',              CountryType::class)
-            ->add('dateNaissance',     DateType::class, array(
+            ->add('dateNaissance',     BirthdayType::class, array(
                     'format'=> 'ddMMMyyyy',)
             )
             ->add('Tarifreduit',       checkboxType::class, array(

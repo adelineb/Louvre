@@ -17,7 +17,7 @@ class ClientsListeModel
     /**
      * @var \string
      */
-    private $clients;
+    public $clients;
 
     public function __construct(array $clients)
     {

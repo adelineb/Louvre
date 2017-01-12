@@ -10,4 +10,18 @@ namespace Louvre\BilletterieBundle\Repository;
  */
 class TarifRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getTarif($age)
+    {
+        $qb = $this
+            ->createQueryBuilder('t')
+            ->where('t.age_mini <= :age')
+            ->andWhere('(t.age_maxi > :age')
+            ->setParameter('age', $age)
+        ;
+        dump($qb);
+        return $qb
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 }

@@ -77,9 +77,16 @@ class OrdersController extends Controller
 
     public function commandeAction(Request $request)
     {
-        $tarif = $this->container->get('billetterie.tarif');
-        $tarif->CalculTarif($request);
+        $tarif = $this->get('billetterie.tarif');
 
+        $session = $request->getSession();
+        $infos = $session->get('Infos');
+
+        foreach($infos->getClients() as $client) {
+            echo($client->nom);
+            $tarif->CalculTarif($client->datenaissance);
+            //echo($tarif);
+        }
 
         $commande = new CommandeModel();
         $form = $this->get('form.factory')->create(CommandeType::class, $commande);

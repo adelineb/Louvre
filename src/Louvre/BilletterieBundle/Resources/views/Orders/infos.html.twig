@@ -21,7 +21,22 @@
                     <td>{{ form_widget(form.prenom) }}</td>
                 </tr>
             {% endblock %}#}
-            {{ form(form) }}
+            {% set i = 0 %}
+            {% for client in form.Clients %}
+                {% set i = i + 1 %}
+                <label>Information sur le visiteur {{ i }} </label>
+                <br/>
+                <label>Nom</label>{{ form_widget(client.nom) }}
+                <br/>
+                <label>Prénom</label> {{ form_widget(client.prenom) }}
+                <br/>
+                <label>Pays</label> {{ form_widget(client.pays) }}
+                <br/>
+                <label>Date de naissance</label> {{ form_widget(client.dateNaissance) }}
+                <label>Tarif réduit</label> {{ form_widget(client.Tarifreduit) }}
+                <hr />
+            {% endfor %}
+            {#{{ form(form) }}#}
 
        </fieldset>
 

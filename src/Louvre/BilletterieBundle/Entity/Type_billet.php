@@ -28,6 +28,11 @@ class Type_billet
      */
     private $libelle;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Louvre\BilletterieBundle\Entity\billet", inversedBy="typebillet")
+     */
+    private $billet;
+
 
     /**
      * Get id

@@ -39,6 +39,16 @@ class ClientModel
     public $tarifreduit;
 
     /**
+     * @var \string
+     */
+    public $tarif;
+
+    /**
+     * @var \integer
+     */
+    public $codetarif;
+
+    /**
      * @var \integer
      */
     public $prix;
@@ -101,6 +111,30 @@ class ClientModel
     public function getTarifreduit()
     {
         return $this->tarifreduit;
+    }
+
+    public function setTarif($tarif)
+    {
+        $this->tarif = $tarif;
+
+        return $this;
+    }
+
+    public function getTarif()
+    {
+        return $this->tarif;
+    }
+
+    public function setCodeTarif($codetarif)
+    {
+        $this->codetarif = $codetarif;
+
+        return $this;
+    }
+
+    public function getCodeTarif()
+    {
+        return $this->codetarif;
     }
 
     public function setPrix($tarifreduit)

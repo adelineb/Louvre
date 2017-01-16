@@ -49,6 +49,10 @@ class Tarif
      */
     private $ageMaxi;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Louvre\BilletterieBundle\Entity\Client", inversedBy="tarif")
+     */
+    private $client;
 
     /**
      * Get id

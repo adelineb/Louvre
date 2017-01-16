@@ -80,9 +80,21 @@ table, table th {
     border-style: solid;
     margin-top: 20px;
     margin-bottom: 20px;
+    text-align: center;
 }
 
-#recapCommande, #recapCommande > thead > tr > th {
-    text-align : center;
+table {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 20px;
+}
+
+#recapCommande, #recapCommande > thead > tr > th, #recapCommande > tfoot > tr > th:nth-child(2) {
     color: white;
+    text-align: center;
+}
+
+#total {
+    text-align: right;
+    padding-right: 30px;
 }

@@ -22,7 +22,8 @@ class ClientType extends AbstractType
         $builder
             ->add('nom',               TextType::class)
             ->add('prenom',            TextType::class)
-            ->add('pays',              CountryType::class)
+            ->add('pays',              CountryType::class, array(
+                'preferred_choices' => array('FR')))
             ->add('dateNaissance',     BirthdayType::class, array(
                     'format'=> 'ddMMMyyyy',)
             )

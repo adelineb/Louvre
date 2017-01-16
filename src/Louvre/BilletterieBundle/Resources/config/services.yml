@@ -2,5 +2,15 @@ services:
 #    louvre_billetterie.example:
 #        class: Louvre\BilletterieBundle\Example
 #        arguments: ["@service_id", "plain_value", "%parameter%"]
+
+    myrepository:
+        class: Doctrine\ORM\EntityRepository
+        factory: ["@doctrine.orm.entity_manager", getRepository]
+        arguments:
+            - Louvre\BilletterieBundle\Entity\Tarif
+
+
     billetterie.tarif:
         class: Louvre\BilletterieBundle\Calcul\LouvreTarif
+        arguments:
+            - "@myrepository"

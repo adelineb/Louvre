@@ -14,11 +14,10 @@ class TarifRepository extends \Doctrine\ORM\EntityRepository
     {
         $qb = $this
             ->createQueryBuilder('t')
-            ->where('t.age_mini <= :age')
-            ->andWhere('(t.age_maxi > :age')
+            ->where('t.ageMini <= :age')
+            ->andWhere('t.ageMaxi > :age')
             ->setParameter('age', $age)
         ;
-        dump($qb);
         return $qb
             ->getQuery()
             ->getResult()

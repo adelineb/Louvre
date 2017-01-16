@@ -30,7 +30,15 @@ class Commande
     private $email;
 
 
-    private $clients;
+    /**
+     * @ORM\OneToMany(targetEntity="Louvre\BilletterieBundle\Entity\Billet", mappedBy="commande")
+     *
+     */
+    private $billets;
+
+    public function __construct() {
+       // $this->billets = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -64,6 +72,18 @@ class Commande
     public function getEmail()
     {
         return $this->email;
+    }
+
+
+    /*public function addBillet(Billet $billet)
+    {
+        $this->billets[] = $billet;
+        return $this;
+    }*/
+
+    public function getBillets()
+    {
+        return $this->billets;
     }
 }
 

@@ -36,7 +36,7 @@ class Billet
     private $date;
 
     /**
-     * @ORM\OneToOne(targetEntity="Louvre\BilletterieBundle\Entity\Type_billet", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Louvre\BilletterieBundle\Entity\Type_billet", mappedBy="billet")
      */
     private $typebillet;
 
@@ -47,10 +47,12 @@ class Billet
 
 
     /**
-     * @ORM\ManyToOne(targetEntity="Louvre\BilletterieBundle\Entity\Commande")
+     * @ORM\ManyToOne(targetEntity="Louvre\BilletterieBundle\Entity\Commande", inversedBy="billets")
      * @ORM\JoinColumn(nullable=false)
      */
     private $commande;
+
+
 
     public function __construct()
     {
@@ -142,7 +144,7 @@ class Billet
     public function setCommande(Commande $commande)
     {
         $this->commande = $commande;
-        return $this;
+        //return $this;
     }
 
     public function getCommande()

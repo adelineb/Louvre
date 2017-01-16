@@ -50,7 +50,7 @@ class Client
     private $dateNaissance;
 
     /**
-     * @ORM\OneToOne(targetEntity="Louvre\BilletterieBundle\Entity\Tarif", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Louvre\BilletterieBundle\Entity\Tarif", mappedBy="client", cascade={"persist"})
      */
     private $tarif;
 

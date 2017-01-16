@@ -35,6 +35,7 @@
                 <label>Date de naissance</label> {{ form_widget(client.dateNaissance) }}
                 <label>Tarif réduit</label> {{ form_widget(client.Tarifreduit) }}
                 <hr />
+                {{ form_widget(form._token) }}
             {% endfor %}
             {#{{ form(form) }}#}
 

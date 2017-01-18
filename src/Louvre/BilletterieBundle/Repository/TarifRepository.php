@@ -1,6 +1,7 @@
 <?php
 
 namespace Louvre\BilletterieBundle\Repository;
+use Louvre\BilletterieBundle\Entity\Tarif;
 
 /**
  * TarifRepository
@@ -10,6 +11,9 @@ namespace Louvre\BilletterieBundle\Repository;
  */
 class TarifRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * @return Tarif
+     */
     public function getTarif($age)
     {
         $qb = $this
@@ -20,7 +24,23 @@ class TarifRepository extends \Doctrine\ORM\EntityRepository
         ;
         return $qb
             ->getQuery()
-            ->getResult()
+            ->getSingleResult()
+            ;
+    }
+
+    /**
+     * @return Tarif
+     */
+    public function getTarifReduit()
+    {
+        $qb = $this
+            ->createQueryBuilder('t')
+            ->where('t.libelle = :reduit')
+            ->setParameter('reduit', "Réduit")
+        ;
+        return $qb
+            ->getQuery()
+            ->getSingleResult()
             ;
     }
 }

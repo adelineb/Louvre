@@ -11,9 +11,10 @@ class LoadTarif implements FixtureInterface
     public function load(ObjectManager $manager)
     {
         $tab = array(
+            array('libelle' => 'Gratuit', 'tarif' => '0', 'age_mini' => '0', 'age_maxi' => '4'),
             array('libelle' => 'Enfant', 'tarif' => '8', 'age_mini' => '4', 'age_maxi' => '12'),
             array('libelle' => 'Normal', 'tarif' => '16', 'age_mini' => '12', 'age_maxi' => '60'),
-            array('libelle' => 'Sénior', 'tarif' => '12', 'age_mini' => '60', 'age_maxi' => ''),
+            array('libelle' => 'Sénior', 'tarif' => '12', 'age_mini' => '60', 'age_maxi' => '150'),
             array('libelle' => 'Réduit', 'tarif' => '10', 'age_mini' => '', 'age_maxi' => ''),
         );
 

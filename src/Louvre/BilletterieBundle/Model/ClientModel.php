@@ -25,6 +25,7 @@ class ClientModel
 
     /**
      * @var \string
+     * * @Assert\Country()
      */
     public $pays;
 

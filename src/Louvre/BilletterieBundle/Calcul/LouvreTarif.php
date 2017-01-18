@@ -16,16 +16,22 @@ class LouvreTarif
         $this->tarifRepository = $tarifRepository;
     }
 
-    public function calculTarif($datenaissance)
+    public function calculTarif($datenaissance, $tarifreduit)
     {
-        $date1 = new \DateTime();
-        $interval = $date1->diff($datenaissance);
-        $age = $interval->y;
+        if ($tarifreduit == true)
+        {
+            $tarif = $this->tarifRepository->getTarifReduit();
+        }
+        else
+        {
+            $date1 = new \DateTime();
+            $interval = $date1->diff($datenaissance);
+            $age = $interval->y;
 
-        $listTarifs = $this->tarifRepository->getTarif($age);
+            $tarif = $this->tarifRepository->getTarif($age);
+        }
 
-
-        return($listTarifs);
+        return $tarif->getTarif();
 
     }
 }

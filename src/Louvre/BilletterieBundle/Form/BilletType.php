@@ -2,7 +2,7 @@
 
 namespace Louvre\BilletterieBundle\Form;
 
-use Doctrine\DBAL\Types\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -20,17 +20,17 @@ class BilletType extends AbstractType
     {
         dump($builder);
         $builder
-            ->add('date',               DateType::class
-                /*, array(
+            ->add('date',               DateTimeType::class
+                , array(
                     'format'=> 'ddMMMyyyy',
                     'input' => 'datetime',
-                    'attr' => array('class' => 'date'),
-                    )*/
+                    'attr' => ['class' => 'js-datepicker'],
+                    )
             )
             ->add('typebillet',         ChoiceType::class, array(
                 'choices' =>array('Journée'=>'1', 'Demi-journée'=>'2'), 'expanded' => true))
             ->add('nbbillet',           IntegerType::class)
-            ->add('Etapesuivante',      SubmitType::class, array('label'=>'Etape suivante >'))
+            //->add('Etapesuivante',      SubmitType::class, array('label'=>'Etape suivante >'))
             //->add('Annuler',            SubmitType::class)
       ;
     }

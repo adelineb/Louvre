@@ -58,10 +58,13 @@
         </fieldset>
 
         <div>
-            {{ form_widget(form.Etapesuivante, {'attr': {'class': 'btn btn-default'}}) }}
-            {{ form_widget(form.Etapeprec, {'attr': {'class': 'btn btn-default'}}) }}
-            {{ form_widget(form.Annuler, {'attr': {'value': 'reset', 'class': 'btn btn-danger'}}) }}
+            <div style="text-align:right">
+                <a href=""><input type="button" class="btn btn-danger" value="Annuler" /></a>
+                <a href="{{ path('louvre_billetterie_infos') }}"><input type="button" class="btn btn-default" value="< Etape précédente" /></a>
+                <input type="submit" class="btn btn-default" value="Etape suivante >" />
+            </div>
         </div>
+        {{ form_end(form) }}
 
     </div>
 
@@ -72,14 +75,16 @@
     <hr />
     <!--à partir de-->
     Nombre de ticket(s) : {{ app.session.get('nb_billet') }}
-
     <div>
         {% set infos = app.session.get('Infos') %}
+        <br>
         {% for billet in infos.getClients() %}
+
             <p>{{ billet.nom }}
             {{ billet.prenom }}
              / Tarif {{ billet.tarif }}</p>
         {% endfor %}
+
     </div>
 
     <hr />

@@ -2,6 +2,7 @@
 
 namespace Louvre\BilletterieBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -36,7 +37,8 @@ class Billet
     private $date;
 
     /**
-     * @ORM\OneToMany(targetEntity="Louvre\BilletterieBundle\Entity\Type_billet", mappedBy="billet")
+     * @ORM\ManyToOne(targetEntity="Louvre\BilletterieBundle\Entity\Type_billet", inversedBy="billet")
+     * @ORM\JoinColumn(name="typebillet_id", nullable=false)
      */
     private $typebillet;
 
@@ -57,6 +59,7 @@ class Billet
     public function __construct()
     {
         $this->date = new \Datetime();
+        $this->typebillet = new ArrayCollection();
     }
 
     /**

@@ -37,7 +37,7 @@ class Commande
     private $billets;
 
     public function __construct() {
-       // $this->billets = new ArrayCollection();
+        $this->billets = new ArrayCollection();
     }
 
     /**

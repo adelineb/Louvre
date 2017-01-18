@@ -2,6 +2,7 @@
 
 namespace Louvre\BilletterieBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -49,8 +50,10 @@ class Client
      */
     private $dateNaissance;
 
+
     /**
-     * @ORM\OneToMany(targetEntity="Louvre\BilletterieBundle\Entity\Tarif", mappedBy="client", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Louvre\BilletterieBundle\Entity\Tarif", inversedBy="client")
+     * @ORM\JoinColumn(name="tarif_id", nullable=false)
      */
     private $tarif;
 
@@ -58,6 +61,7 @@ class Client
     public function __construct()
     {
         $this->dateNaissance = new \Datetime();
+        $this->tarif = new ArrayCollection();
     }
 
     /**

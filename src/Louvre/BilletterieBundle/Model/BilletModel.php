@@ -7,6 +7,10 @@ namespace Louvre\BilletterieBundle\Model;
  * Date: 04/01/2017
  * Time: 12:35
  */
+
+use Louvre\billetterieBundle\Validator\ControleDate;
+
+
 class BilletModel
 {
     /**
@@ -16,6 +20,7 @@ class BilletModel
 
     /**
      * @var \DateTime
+     * @ControleDate()
      */
     private $date;
 

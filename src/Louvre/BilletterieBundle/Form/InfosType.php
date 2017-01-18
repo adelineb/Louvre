@@ -25,9 +25,6 @@ class InfosType extends AbstractType
                 'entry_type' => ClientType::class,
                 'allow_add' => true,
                 'allow_delete' => true))
-            ->add('Etapesuivante',      SubmitType::class, array('label'=>'Etape suivante >'))
-            ->add('Etapeprec',          SubmitType::class, array('label'=>'< Etape précédente'))
-            ->add('Annuler',            SubmitType::class)
         ;
    }
 

@@ -49,10 +49,12 @@ class Tarif
      */
     private $ageMaxi;
 
+
     /**
-     * @ORM\ManyToOne(targetEntity="Louvre\BilletterieBundle\Entity\Client", inversedBy="tarif")
+     * @ORM\OneToMany(targetEntity="Louvre\BilletterieBundle\Entity\Client", mappedBy="tarif")
      */
     private $client;
+
 
     /**
      * Get id
@@ -158,6 +160,17 @@ class Tarif
     public function getAgeMaxi()
     {
         return $this->ageMaxi;
+    }
+
+    public function setClient(Client $client)
+    {
+        $this->client = $client;
+        //return $this;
+    }
+
+    public function getClient()
+    {
+        return $this->client;
     }
 }
 

@@ -29,7 +29,7 @@ class Type_billet
     private $libelle;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Louvre\BilletterieBundle\Entity\billet", inversedBy="typebillet")
+     * @ORM\OneToMany(targetEntity="Louvre\BilletterieBundle\Entity\Billet", mappedBy="typebillet")
      */
     private $billet;
 
@@ -66,6 +66,17 @@ class Type_billet
     public function getLibelle()
     {
         return $this->libelle;
+    }
+
+    public function setBillet(Billet $billet)
+    {
+        $this->billet = $billet;
+        //return $this;
+    }
+
+    public function getBillet()
+    {
+        return $this->billet;
     }
 }
 

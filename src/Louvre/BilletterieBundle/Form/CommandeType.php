@@ -21,9 +21,6 @@ class CommandeType extends AbstractType
             ->add('paiement',        ChoiceType::class, array(
                 'choices' =>array('Paypal'=>'1', 'Carte Bancaire'=>'2'), 'expanded' => true))
             ->add('email', TextType::class)
-            ->add('Etapesuivante',   SubmitType::class, array('label'=>'Etape suivante >'))
-            ->add('Etapeprec',       SubmitType::class, array('label'=>'< Etape précédente'))
-            ->add('Annuler',         SubmitType::class)
         ;
     }
     

@@ -18,7 +18,6 @@ class CommandeModel
 
     /**
      * @var \string
-     * @Assert\Url()
      */
     private $email;
 

@@ -9,9 +9,12 @@
     {% block stylesheets %}
         {# On charge le CSS de bootstrap depuis le site directement #}
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-        <link rel="stylesheet" href="{{ asset('css/main.css') }}" />
-        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-        <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/themes/ui-lightness/jquery-ui.css" type="text/css" media="all"/>
+        {#<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.min.css">#}
+        <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/bootstrap-datepicker2.css') }}">
+
+        {#<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/themes/ui-lightness/jquery-ui.css" type="text/css" media="all"/>#}
     {% endblock %}
 
 </head>
@@ -31,9 +34,8 @@
         </header>
 
         <ol class="breadcrumb">
-            <li>Date de la visite</li>
-            <li>Informations</li>
-            <li>Confirmation & Paiement</li>
+            {% block filariane %}
+            {% endblock %}
         </ol>
 
         <section class="row">
@@ -56,9 +58,11 @@
     {% block javascripts %}
         <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-        <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+        <script src="{{ asset('js/bootstrap-datepicker2.js') }}"></script>
+        <script src="{{ asset('js/bootstrap-datepicker.fr.min.js') }}"></script>
+        {#<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"></script>
-        <script type="text/javascript" src=" http://jquery-ui.googlecode.com/svn/trunk/ui/i18n/jquery.ui.datepicker-fr.js"></script>
+        <script type="text/javascript" src=" http://jquery-ui.googlecode.com/svn/trunk/ui/i18n/jquery.ui.datepicker-fr.js"></script>#}
      {% endblock %}
 
 </body>

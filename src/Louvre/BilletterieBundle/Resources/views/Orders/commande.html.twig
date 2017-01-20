@@ -4,9 +4,14 @@
     Billetterie - {{ parent() }}
 {% endblock %}
 
+{% block filariane %}
+    <li>Date de la visite</li>
+    <li>Informations</li>
+    <li>Confirmation & Paiement</li>
+{% endblock %}
+
+
 {% block main %}
-
-
     <div class="well">
         {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
 
@@ -18,31 +23,31 @@
 
             <div class="row">
                 {#<div class="col-xs-12 col-md-6">#}
-                    <table class="table table-bordered" id="recapCommande">
-                        <thead class="thead-inverse">
-                            <tr>
-                                <th>Nom prénom</th>
-                                <th>Tarif</th>
-                                <th>Prix</th>
-                            </tr>
-                        </thead>
-                        {% set infos = app.session.get('Infos') %}
-                        {% for billet in infos.getClients() %}
-                        <tbody>
-                            <tr>
-                                <th> {{ billet.nom }} {{ billet.prenom }}</th>
-                                <th> {{ billet.tarif }} </th>
-                                <th> {{ billet.prix }} € </th>
-                            </tr>
-                        {% endfor %}
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <th colspan="2" class="text-right"> Total </th>
-                                <th> {{ app.session.get('Total')  }} € </th>
-                            </tr>
-                        </tfoot>
-                    </table>
+                <table class="table table-bordered" id="recapCommande">
+                    <thead class="thead-inverse">
+                    <tr>
+                        <th>Nom prénom</th>
+                        <th>Tarif</th>
+                        <th>Prix</th>
+                    </tr>
+                    </thead>
+                    {% set infos = app.session.get('Infos') %}
+                    {% for billet in infos.getClients() %}
+                    <tbody>
+                    <tr>
+                        <th> {{ billet.nom }} {{ billet.prenom }}</th>
+                        <th> {{ billet.tarif }} </th>
+                        <th> {{ billet.prix }} € </th>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <th colspan="2" class="text-right"> Total </th>
+                        <th> {{ app.session.get('Total')  }} € </th>
+                    </tr>
+                    </tfoot>
+                </table>
                 {#</div>#}
             </div>
 
@@ -65,10 +70,9 @@
             </div>
         </div>
         {{ form_end(form) }}
-
     </div>
-
 {% endblock %}
+
 {% block aside %}
     <h4>Votre panier</h4>
     Visite pour le {{ app.session.get('date_visite')|date("d/m/Y") }}
@@ -81,8 +85,8 @@
         {% for billet in infos.getClients() %}
 
             <p>{{ billet.nom }}
-            {{ billet.prenom }}
-             / Tarif {{ billet.tarif }}</p>
+                {{ billet.prenom }}
+                / Tarif {{ billet.tarif }}</p>
         {% endfor %}
 
     </div>

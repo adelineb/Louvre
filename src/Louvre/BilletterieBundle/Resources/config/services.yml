@@ -14,3 +14,9 @@ services:
         class: Louvre\BilletterieBundle\Calcul\LouvreTarif
         arguments:
             - "@myrepository"
+
+    billetterie.email:
+        class: Louvre\BilletterieBundle\Email\EnvoiMail
+        arguments:
+            - "@mailer"
+            - "@twig"

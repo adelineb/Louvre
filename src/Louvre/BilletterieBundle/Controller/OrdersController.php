@@ -24,7 +24,7 @@ class OrdersController extends Controller
         $billet->setDate(new \DateTime());
         $session = $request->getSession();
         if ($session->get('date_visite') <> null){
-            $billet->setDate($session->get('date_visite'));
+            $billet->setDate(new \DateTime());
             $billet->setTypebillet($session->get('type_billet'));
             $billet->setNbbillet($session->get('nb_billet'));
         }
@@ -81,25 +81,12 @@ class OrdersController extends Controller
         $infos = $session->get('Infos');
 
         $heure = $session->get('date_visite')->format('H');
-        foreach($infos->getClients() as $client) {
-            $tarif = $listTarifs->CalculTarif($client->datenaissance, $client->tarifreduit);
-
-            /*foreach ($tarifService as $tarif) {
-                $client->tarif = $tarif->getLibelle();
-                $client->codetarif = $tarif->getId();
-                $prixbillet = $tarif->getTarif();
-                dump($prixbillet);
-                dump($client->tarifreduit);
-                if ($heure > 14)
-                {
-                    $prixbillet = $tarif->getTarif() / 2;
-                }
-                dump($prixbillet);
-
-                $client->prix = $prixbillet;
-                $totCommande = $totCommande + $prixbillet;
-            }*/
+        foreach ($infos->getClients() as $client) {
+            $tarif = $listTarifs->CalculTarif($client, $session->get('date_visite'), $session->get('type_billet'));
+            //$tarif = $listTarifs->CalculTarif($client, $heure);
+            $totCommande += $tarif;
         }
+
         $session->set('Infos', $infos);
         $session->set('Total', $totCommande);
 
@@ -108,12 +95,11 @@ class OrdersController extends Controller
 
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
-            dump($form);
             $em = $this->getDoctrine()->getManager();
             if ($form->isValid()) {
                 $commande = new Commande();
                 $commande->setEmail($commandeModel->getEmail());
-                foreach($infos->getClients() as $client) {
+                foreach ($infos->getClients() as $client) {
                     $visiteur = new Client();
                     $visiteur->setNom($client->nom);
                     $visiteur->setPrenom($client->prenom);
@@ -134,10 +120,26 @@ class OrdersController extends Controller
                 }
                 $em->persist($commande);
                 $em->flush();
-            }
-            //return $this->redirectToRoute('/', array());
-        }
 
+                /*$message = Swift_Message::newInstance()
+                    ->setFrom('from@example.com')
+                    ->setTo('to@example.com')
+                    ->setSubject('Subject')
+                    ->setBody('Body')
+                    ->attach(Swift_Attachment::fromPath('/path/to/a/file.zip'))
+                ;
+
+                $this->getMailer()->send($message);*/
+
+
+                $this->get('billetterie.email')->envoiMail($commande);
+                return $this->render('LouvreBilletterieBundle:Orders:email.html.twig', array(
+                    //'commande' => $commande,
+                    //'stripe_public_key' => $this->getParameter("stripe_public_key"),
+                ));
+
+            }
+        }
         return $this->render('LouvreBilletterieBundle:Orders:commande.html.twig', array(
             'form' => $form->createView(),
         ));

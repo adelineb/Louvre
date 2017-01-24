@@ -4,26 +4,28 @@ namespace Louvre\BilletterieBundle\Validator;
 
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
+use Doctrine\ORM\EntityManager;
+use Louvre\BilletterieBundle\Entity\Billet;
 
 class ControleDateValidator extends ConstraintValidator
 {
+    private $em;
+
+    public function __construct(EntityManager $em)
+    {
+        $this->em = $em;
+    }
+
     public function validate($value, Constraint $contraint)
     {
         // Jours passés
         $today = new \DateTime;
         $today->setTime(0, 0, 0);
-        /*if ($value < $today) {
-            $this->context->addViolation($contraint->message1);
-        }*/
 
         // Dimanche
         $jourFermes = array(
             "dimanche" =>7
         );
-        /*if (in_array($value->format('N'), $jourFermes))
-        {
-            $this->context->addViolation($contraint->message2);
-        }*/
 
         // Jours fériés
         $year = $today->format('Y');
@@ -46,9 +48,14 @@ class ControleDateValidator extends ConstraintValidator
             mktime(0, 0, 0, $easterMonth, $easterDay + 40, $easterYear),
             mktime(0, 0, 0, $easterMonth, $easterDay + 50, $easterYear),
         );
-        /*dump($value->setTime(0, 0, 0));
-        dump($value->setTime(0, 0, 0)->getTimestamp());
-        dump($joursFeries);*/
+
+        $repository = $this->em->getRepository('LouvreBilletterieBundle:Billet');
+        dump($value);
+        $listReservations = $repository->FindByDate($value);
+        dump($listReservations);
+        dump(count($listReservations));
+        $nbBillet= count($listReservations);
+        dump($nbBillet);
 
         if ($value < $today) {
             $this->context->addViolation($contraint->message1);
@@ -57,13 +64,14 @@ class ControleDateValidator extends ConstraintValidator
         {
             $this->context->addViolation($contraint->message2);
         }
-        else
-        //$value->setTime(0, 0, 0);
-        if (in_array($value->setTime(0, 0, 0)->getTimestamp(), $joursFeries))
+        else if (in_array($value->setTime(0, 0, 0)->getTimestamp(), $joursFeries))
         {
             $this->context->addViolation($contraint->message3);
         }
-
+        else if ($nbBillet >= 1000) {
+                //$this->context->buildViolation($contraint->message)->addViolation();
+                $this->context->addViolation($contraint->message4);
+        }
 
     }
 

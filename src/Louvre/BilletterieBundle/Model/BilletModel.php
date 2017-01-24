@@ -1,16 +1,18 @@
 <?php
 
 namespace Louvre\BilletterieBundle\Model;
+
+use Louvre\billetterieBundle\Validator\ControleDateValidator;
+use Louvre\billetterieBundle\Validator\ControleLimite;
+use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
+use Louvre\BilletterieBundle\Validator\ControleDate;
+
 /**
- * Created by PhpStorm.
- * User: user
- * Date: 04/01/2017
- * Time: 12:35
+ * Class BilletModel
+ *
  */
-
-use Louvre\billetterieBundle\Validator\ControleDate;
-
-
 class BilletModel
 {
     /**

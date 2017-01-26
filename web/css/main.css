@@ -98,3 +98,7 @@ table {
     text-align: right;
     padding-right: 30px;
 }
+
+button.stripe-button-el {
+    display: none;
+}

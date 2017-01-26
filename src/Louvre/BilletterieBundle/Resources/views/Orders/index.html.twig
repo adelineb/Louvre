@@ -63,9 +63,9 @@
             $.fn.datepicker.dates['fr'] = {
                 months: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
                 monthsShort: ['Jan', 'Fév', 'Mar', 'Avr', 'Avr', 'Mai', 'Jun', 'Jul', 'Aoû', 'Sep', 'Oct', 'Nov', 'Déc'],
-                days: ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'],
-                daysShort: ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'],
-                daysMin: ['Lu', 'Mar', 'Me', 'Je', 'Ve', 'Sa', 'Di'],
+                days: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+                daysShort: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'],
+                daysMin: ['Di', 'Lu', 'Mar', 'Me', 'Je', 'Ve', 'Sa'],
             };
             $('#datepicker').datepicker({
                 format: 'dd/mm/yyyy',
@@ -75,9 +75,10 @@
                 },
                 currentText: 'Aujourd\'hui',
                 language: 'fr',
-                firstDay: 1,
+                //firstDay: 1,
+                weekStart: 1,
                 todayHighlight: true,
-                daysOfWeekDisabled: "6"
+                daysOfWeekDisabled: "0"
             })
         })
 

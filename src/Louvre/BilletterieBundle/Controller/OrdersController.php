@@ -83,20 +83,26 @@ class OrdersController extends Controller
         $heure = $session->get('date_visite')->format('H');
         foreach ($infos->getClients() as $client) {
             $tarif = $listTarifs->CalculTarif($client, $session->get('date_visite'), $session->get('type_billet'));
-            //$tarif = $listTarifs->CalculTarif($client, $heure);
             $totCommande += $tarif;
         }
 
         $session->set('Infos', $infos);
         $session->set('Total', $totCommande);
 
+        $str = "ABCDEFGHIJKLMNOPQRSTUVWYZ";
+        $str = str_split(str_shuffle($str), 4)[0];
+        $coderesa = rand(1000,9999).$str;
+
         $commandeModel = new CommandeModel();
         $form = $this->get('form.factory')->create(CommandeType::class, $commandeModel);
-
+        $email = '';
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
             $em = $this->getDoctrine()->getManager();
             if ($form->isValid()) {
+                $token = $request->request->get('stripeToken');
+                $stripe = $this->get('billetterie.stripe');
+                $retour = $stripe->chargeCard("sk_test_9ID0yEGE5VXLoD0nYybhVJWJ", $token, $totCommande);
                 $commande = new Commande();
                 $commande->setEmail($commandeModel->getEmail());
                 foreach ($infos->getClients() as $client) {
@@ -120,28 +126,34 @@ class OrdersController extends Controller
                 }
                 $em->persist($commande);
                 $em->flush();
-
-                /*$message = Swift_Message::newInstance()
-                    ->setFrom('from@example.com')
-                    ->setTo('to@example.com')
-                    ->setSubject('Subject')
-                    ->setBody('Body')
-                    ->attach(Swift_Attachment::fromPath('/path/to/a/file.zip'))
-                ;
-
-                $this->getMailer()->send($message);*/
-
-
+                $email = $commande->getEmail();
                 $this->get('billetterie.email')->envoiMail($commande);
-                return $this->render('LouvreBilletterieBundle:Orders:email.html.twig', array(
-                    //'commande' => $commande,
-                    //'stripe_public_key' => $this->getParameter("stripe_public_key"),
-                ));
-
+                return $this->redirectToRoute('louvre_billetterie_email', array());
+                //return $this->render('LouvreBilletterieBundle:Orders:email.html.twig', array(
+                //    'coderesa' => $coderesa,
+                //));
             }
         }
         return $this->render('LouvreBilletterieBundle:Orders:commande.html.twig', array(
             'form' => $form->createView(),
+            'montant' => $session->get('Total'),
+            'email' => $email,
         ));
     }
+
+    public function emailAction(Request $request)
+    {
+        $str = "ABCDEFGHIJKLMNOPQRSTUVWYZ";
+        $str = str_split(str_shuffle($str), 4)[0];
+        $coderesa = rand(1000,9999).$str;
+        //$this->get('session')->clear();
+        /*if ($request->isMethod('POST')) {
+            dump("OK");
+                return $this->redirectToRoute('/', array());
+        }*/
+        return $this->render('LouvreBilletterieBundle:Orders:email.html.twig', array(
+            'coderesa' =>$coderesa,
+        ));
+    }
+
 }

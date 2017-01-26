@@ -11,7 +11,7 @@ class ControleDateValidator extends ConstraintValidator
 {
     private $em;
 
-    public function __construct(EntityManager $em)
+        public function __construct(EntityManager $em)
     {
         $this->em = $em;
     }
@@ -20,6 +20,7 @@ class ControleDateValidator extends ConstraintValidator
     {
         // Jours passés
         $today = new \DateTime;
+        $heureJour = $today->format('H');
         $today->setTime(0, 0, 0);
 
         // Dimanche
@@ -48,32 +49,29 @@ class ControleDateValidator extends ConstraintValidator
             mktime(0, 0, 0, $easterMonth, $easterDay + 40, $easterYear),
             mktime(0, 0, 0, $easterMonth, $easterDay + 50, $easterYear),
         );
-
+        
         $repository = $this->em->getRepository('LouvreBilletterieBundle:Billet');
-        dump($value);
-        $listReservations = $repository->FindByDate($value);
-        dump($listReservations);
-        dump(count($listReservations));
+        $listReservations = $repository->FindByDate($value->getDate());
         $nbBillet= count($listReservations);
-        dump($nbBillet);
+        $nbBillet += $value->getNbBillet();
 
-        if ($value < $today) {
+        if ($value->getDate() < $today) {
             $this->context->addViolation($contraint->message1);
         }
-        else if (in_array($value->format('N'), $jourFermes))
+        else if (in_array($value->getDate()->format('N'), $jourFermes))
         {
             $this->context->addViolation($contraint->message2);
         }
-        else if (in_array($value->setTime(0, 0, 0)->getTimestamp(), $joursFeries))
+        else if (in_array($value->getDate()->setTime(0, 0, 0)->getTimestamp(), $joursFeries))
         {
             $this->context->addViolation($contraint->message3);
         }
         else if ($nbBillet >= 1000) {
-                //$this->context->buildViolation($contraint->message)->addViolation();
-                $this->context->addViolation($contraint->message4);
+            $this->context->addViolation($contraint->message4);
         }
-
+        else if ($value->getDate() == $today && $heureJour >= 14 && $value->getTypeBillet() == 1)
+        {
+            $this->context->addViolation($contraint->message5);
+        }
     }
-
-
 }

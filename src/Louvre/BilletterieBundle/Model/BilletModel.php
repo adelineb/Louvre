@@ -2,16 +2,14 @@
 
 namespace Louvre\BilletterieBundle\Model;
 
-use Louvre\billetterieBundle\Validator\ControleDateValidator;
-use Louvre\billetterieBundle\Validator\ControleLimite;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
-use Louvre\BilletterieBundle\Validator\ControleDate;
+use Louvre\BilletterieBundle\Validator as AcmeAssert;
 
 /**
  * Class BilletModel
- *
+ * @AcmeAssert\ControleDate()
  */
 class BilletModel
 {
@@ -22,7 +20,6 @@ class BilletModel
 
     /**
      * @var \DateTime
-     * @ControleDate()
      */
     private $date;
 

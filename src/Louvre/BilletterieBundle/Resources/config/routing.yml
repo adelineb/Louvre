@@ -9,3 +9,11 @@ louvre_billetterie_infos:
 louvre_billetterie_commande:
     path:     /commande
     defaults: { _controller: LouvreBilletterieBundle:Orders:commande }
+
+louvre_billetterie_email:
+    path:     /confirmation
+    defaults: { _controller: LouvreBilletterieBundle:Orders:email }
+
+louvre_billetterie_paiement:
+    path:     /paiement
+    defaults: { _controller: LouvreBilletterieBundle:Orders:paiement }

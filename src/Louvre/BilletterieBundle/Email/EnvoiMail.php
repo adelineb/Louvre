@@ -16,6 +16,7 @@ class EnvoiMail
     {
         $this->mailer = $mailer;
         $this->twig = $twig;
+        dump($mailer);
     }
 
     public function envoiMail(Commande $commande)
@@ -32,11 +33,11 @@ class EnvoiMail
         $message
             ->setCharset('UTF-8')
             ->setSubject('Billet(s) de réservation au Musée du Louvre')
-            ->setBody($this->twig->render('LouvreBilletterieBundle:Orders:email.html.twig',
+            ->setBody($this->twig->render('LouvreBilletterieBundle:Orders:mailConfirmation.html.twig',
                 array('coderesa' => $coderesa,)))
             ->setContentType('text/html')
             ->setTo('ajacquelin27@hotmail.com')
-            ->setFrom(array('ajacquelin27@hotmail.com' => 'Musée du Louvre'));
+            ->setFrom('adeline.barre62@gmail.com');
         // Envoi du message au visiteur
         $this->mailer->send($message);
         dump("email envoyé");

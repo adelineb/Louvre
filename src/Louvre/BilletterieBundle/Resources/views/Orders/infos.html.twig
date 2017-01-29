@@ -11,7 +11,6 @@
 
 {% block main %}
 
-    <div class="well">
         {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
 
         {# Les erreurs générales du formulaire. #}
@@ -19,13 +18,7 @@
 
         <fieldset>
             <legend>Informations visiteurs</legend>
-            {#{% form_theme form _self %}
-            {% block _form_entry_widget %}
-                <tr>
-                    <td>{{ form_widget(form.nom) }}</td>
-                    <td>{{ form_widget(form.prenom) }}</td>
-                </tr>
-            {% endblock %}#}
+
             {% set i = 0 %}
             {% for client in form.Clients %}
                 {% set i = i + 1 %}
@@ -53,7 +46,6 @@
             </div>
         </div>
         {{ form_end(form) }}
-    </div>
 
 {% endblock %}
 {% block aside %}

@@ -8,10 +8,13 @@
 
     {% block stylesheets %}
         {# On charge le CSS de bootstrap depuis le site directement #}
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        {#<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">#}
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+              integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+              crossorigin="anonymous">
         {#<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.min.css">#}
-        <link rel="stylesheet" href="{{ asset('css/main.css') }}">
         <link rel="stylesheet" href="{{ asset('css/bootstrap-datepicker2.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/main.css') }}">
 
         {#<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/themes/ui-lightness/jquery-ui.css" type="text/css" media="all"/>#}
@@ -24,7 +27,7 @@
         <header class="row">
             <div class="col-sm-4 text-center">
                 <a href ="/" title="Accueil">
-                    <img src = "{{ asset('images/logo.jpg') }}" alt="Logo Louvre" width="280px">
+                    <img src = "{{ asset('images/logo.jpg') }}" class="img-responsive" alt="Logo Louvre" width="280px">
                 </a>
             </div>
             <div class="col-sm-8 text-center">
@@ -33,15 +36,18 @@
             </div>
         </header>
 
-        <ol class="breadcrumb">
-            {% block filariane %}
-            {% endblock %}
-        </ol>
 
         <section class="row">
-            <main class="col-sm-9">
-                {% block main %}
+            <ol class="breadcrumb">
+                {% block filariane %}
                 {% endblock %}
+            </ol>
+
+            <main class="col-sm-9">
+                <div class="content">
+                    {% block main %}
+                    {% endblock %}
+                </div>
             </main>
 
             <aside class="col-sm-3">

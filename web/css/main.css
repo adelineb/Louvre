@@ -1,8 +1,122 @@
-body
+/*Global*/
+body {
+    background-image: url("../images/louvre.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+header, .breadcrumb, .content, aside, footer {
+    background-color: #555555;
+    opacity: 0.8;
+    color: white;
+}
+
+header, .breadcrumb, section {
+    margin-bottom: 10px;
+}
+
+.content, body > div.container > section > aside {
+    min-height: 75vh;
+}
+
+main {
+    padding-left: 0 !important;
+    padding-right: 10px !important;
+}
+
+.content {
+    padding: 5px 10px;
+}
+
+.btn-default:hover {
+    background-color: #345BBA;
+    border-color: #345BBA;
+    color: white;
+}
+
+/*header */
+.img-responsive {
+    margin: auto;
+}
+
+header h1 {
+    font-weight: bolder;
+}
+
+/*formulaire */
+fieldset > legend {
+    color: white;
+}
+
+fieldset > div {
+    margin-left: 5%;
+}
+
+label {
+    margin-right: 3%;
+    font-size: 1.1em;
+}
+
+input, select {
+    color: black;
+    padding: 2px;
+}
+
+.form-group {
+    width: 95%;
+    margin-left: 20px !important;
+}
+
+.btn {
+    margin-top: 20px;
+    margin-left: 3%;
+}
+
+
+.datepicker table {
+    color : white;
+}
+
+.datepicker .disabled {
+    color: #666666;
+}
+
+
+@media (max-width: 767px) {
+    section {
+        display: flex;
+        flex-direction: column;
+    }
+    main {
+        padding-right: 0 !important;
+        order: 2;
+    }
+
+    body > div.container > section > aside {
+        order: 1;
+        min-height: auto;
+        margin-bottom: 10px;
+        padding-bottom: 5px;
+    }
+
+    body > div.container > section > fieldset > img {
+        display : none;
+    }
+}
+
+#recapCommande, #recapCommande > thead > tr> th, #recapCommande > tfoot > tr > th:nth-child(2), table th  {
+    color: white;
+    text-align: center;
+}
+
+button.stripe-button-el {
+    display: none;
+}
+
+/*body
 {
     margin: 0;
-    background: url("../images/louvre.jpg") no-repeat;
-    /*background-size: 100% auto;*/
+    background: url("../images/louvre.jpg");
     background-size: cover;
 }
 
@@ -13,6 +127,7 @@ header, footer, .breadcrumb, .col-sm-3, .well {
     color: white;
     border-radius: 5px;
 }
+
 
 .col-sm-4 {
     padding-top: 20px;
@@ -41,17 +156,15 @@ label {
     }
     .col-sm-9 {
         width: 75%;
+        float: left;
     }
 }
 
 @media (max-width: 767px) {
-    /*section {
-        display :flex;
-    }*/
     main {
         order: 2;
     }
-    aside {
+    body > div.container > section > aside {
         order: 1;
     }
     .col-sm-3 {
@@ -101,4 +214,4 @@ table {
 
 button.stripe-button-el {
     display: none;
-}
+}*/

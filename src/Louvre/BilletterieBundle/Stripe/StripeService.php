@@ -19,6 +19,7 @@ class StripeService extends Controller
      * @var string
      */
     private $apiToken;
+
     public function __construct($apiKey, $apiToken)
     {
         $this->apiKey = $apiKey;

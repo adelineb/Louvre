@@ -10,29 +10,28 @@
 
 {% block main %}
 
-    <div class="well">
         {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
 
         {# Les erreurs générales du formulaire. #}
         {{ form_errors(form) }}
 
         <fieldset>
-                <legend>Choisissez une date</legend>
+            <legend>Choisissez une date</legend>
 
-                <div id="datepicker">
-                    <label>Date de la visite:</label>
-                    {{ form_errors(form.date) }}
-                    {{ form_widget(form.date) }}
-                </div>
+            <div id="datepicker">
+                <label>Date de la visite:</label>
+                {{ form_errors(form.date) }}
+                {{ form_widget(form.date) }}
+            </div>
+            <div class="form-group">
+                <label>Visite</label>
+                    {{ form_widget(form.typebillet) }}
+            </div>
+            <div class="form-group">
+                <label class="required">Nombre de billets</label>
+                {{ form_widget(form.nbbillet, {'attr': {'required': 'required'}}) }}
+            </div>
 
-                <div class="form-group">
-                    <label>Visite</label>
-                        {{ form_widget(form.typebillet) }}
-                </div>
-                <div class="form-group">
-                    <label class="required">Nombre de billets</label>
-                    {{ form_widget(form.nbbillet, {'attr': {'required': 'required'}}) }}
-                </div>
         </fieldset>
 
         <div>
@@ -42,7 +41,6 @@
         </div>
         {{ form_end(form) }}
 
-    </div>
 {% endblock %}
 {% block aside %}
     <h4>Votre panier</h4>

@@ -1,0 +1,29 @@
+<h4>Votre réservation</h4>
+
+<p>Madame, Monsieur, </p>
+<div>
+    <p>
+        Votre réservation à bien été prise en compte.<br/>
+        Un email vient de vous être envoyé.<br/>
+        Ce document servira de billet d'entrée pour le musée du Louvre.<br/>
+        Conservez-le bien !
+    </p>
+</div>
+
+<h1>Musée du Louvre</h1>
+
+<p>Réservation n° {{ coderesa }}</p>
+
+
+<p>Visite pour le {{ app.session.get('date_visite')|date("d/m/Y") }}</p>
+<hr />
+<!--à partir de-->
+Nombre de ticket(s) : {{ app.session.get('nb_billet') }}
+<div>
+    {% set infos = app.session.get('Infos') %}
+    {% for billet in infos.getClients() %}
+
+        <p>{{ billet.nom }} {{ billet.prenom }} / Tarif {{ billet.tarif }}</p>
+    {% endfor %}
+
+</div>

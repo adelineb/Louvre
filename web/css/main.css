@@ -109,6 +109,10 @@ input, select {
     text-align: center;
 }
 
+.billet_date {
+    display: none !important;
+}
+
 button.stripe-button-el {
     display: none;
 }

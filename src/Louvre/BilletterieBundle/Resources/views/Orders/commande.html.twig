@@ -30,12 +30,18 @@
                         <th>Prix</th>
                     </tr>
                     </thead>
+                    {% set i = 0 %}
                     {% set infos = app.session.get('Infos') %}
                     {% for billet in infos.getClients() %}
                     <tbody>
                     <tr>
                         <th> {{ billet.nom }} {{ billet.prenom }}</th>
-                        <th> {{ billet.tarif }} </th>
+                        {% if billet.tarif == "Réduit" %}
+                            <th> {{ billet.tarif }} * </th>
+                            {% set i = i + 1 %}
+                        {% else %}
+                            <th> {{ billet.tarif }} </th>
+                        {% endif %}
                         <th> {{ billet.prix }} € </th>
                     </tr>
                     {% endfor %}
@@ -49,7 +55,10 @@
                 </table>
                 {#</div>#}
             </div>
-
+            {% if i >= 1 %}
+                <p><i> * Merci de vous munir d'un justificatif (carte d'étudiant, carte militaire, carte d'invalidité, etc.) le jour de votre visite.</i></p>
+                <br/>
+            {%  endif %}
             <div class="form-group">
                 <label class="required">Paiement</label>
                 {{ form_widget(form.paiement) }}
@@ -68,8 +77,8 @@
                 <input type="submit" class="btn btn-default" value="Etape suivante >" />
                 <script
                         src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                        {#data-key="{{ stripe_public_key }}"#}
                         data-key="pk_test_Z7CIYfAdyS4BYAwdNQHhUF1A"
+                        {#data-key="{{ stripe_public_key }}"#}
                         data-email= "{{ email }}"
                         data-currency="eur"
                         data-amount="{{ montant * 100 }}"
@@ -96,7 +105,13 @@
 
             <p>{{ billet.nom }}
                 {{ billet.prenom }}
-                / Tarif {{ billet.tarif }}</p>
+                {% if billet.tarif == "Réduit" %}
+                    / Tarif {{ billet.tarif }} *
+                {% else %}
+                    / Tarif {{ billet.tarif }}
+                {% endif %}
+                {#/ Tarif {{ billet.tarif }}#}
+            </p>
         {% endfor %}
 
     </div>

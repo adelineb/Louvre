@@ -56,3 +56,16 @@
 
 {% endblock %}
 
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+         $(':checkbox').change(function() {
+            var id = 'msg_' + $(this).attr('id');
+            if ($(this).is(':checked')) {
+                $(this).after('<p id="' + id + '"><i>Merci de vous munir d\'un justificatif (carte d\'étudiant, carte militaire, carte d\'invalidité, etc.) le jour de votre visite.</i></p>')
+            } else if (!($(this).is(':checked'))) {
+                $('#' + id).remove();
+            }
+        });
+    </script>
+{% endblock %}

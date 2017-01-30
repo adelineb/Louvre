@@ -43,7 +43,7 @@ class Billet
     private $typebillet;
 
     /**
-     * @ORM\OneToOne(targetEntity="Louvre\BilletterieBundle\Entity\Client")
+     * @ORM\OneToOne(targetEntity="Louvre\BilletterieBundle\Entity\Client", cascade={"persist"})
      */
     private $client;
 

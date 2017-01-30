@@ -8,13 +8,19 @@
 
 namespace Louvre\BilletterieBundle\Model;
 
-use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 class ClientModel
 {
     /**
      * @var \string
+     * @Assert\Length(
+     *     min=2,
+     *     max=50,
+     *     minMessage = "Votre nom doit comporter au moins {{ limit }} caractères",
+     *     maxMessage = "Votre nom ne doit pas comporter plus de {{ limit }} caractères."
+     * )
      */
     public $nom;
 

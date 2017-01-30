@@ -35,7 +35,8 @@ class StripeService extends Controller
                 "description" => "Billet musée du Louvre",
             ));
         } catch(\Stripe\Error\Card $e) {
-            // paiement refusé
+            $request->getSession()->getFlashBag()->add('refus', 'Votre paiement a échoué. Veuillez ressaisir votre paiement. Merci.');
+            return false;
         }
     }
     public function getApiKey()

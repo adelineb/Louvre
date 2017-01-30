@@ -29,9 +29,15 @@ class Commande
      */
     private $email;
 
+    /**
+     * àvar string
+     *
+     * @ORM\Column(name="coderea", type="string", length=255)
+     */
+    private $coderea;
 
     /**
-     * @ORM\OneToMany(targetEntity="Louvre\BilletterieBundle\Entity\Billet", mappedBy="commande")
+     * @ORM\OneToMany(targetEntity="Louvre\BilletterieBundle\Entity\Billet", mappedBy="commande", cascade={"persist"})
      *
      */
     private $billets;
@@ -74,6 +80,18 @@ class Commande
         return $this->email;
     }
 
+
+    public function setCoderea($coderea)
+    {
+        $this->coderea = $coderea;
+
+        return $this;
+    }
+
+    public function getCoderea()
+    {
+        return $this->coderea;
+    }
 
     /*public function addBillet(Billet $billet)
     {

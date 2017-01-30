@@ -4,6 +4,7 @@ namespace Louvre\BilletterieBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Client
@@ -26,6 +27,12 @@ class Client
      * @var string
      *
      * @ORM\Column(name="nom", type="string", length=255)
+     * @Assert\Length(
+     *     min=2,
+     *     max=50,
+     *     minMessage = "Votre nom doit comporter au moins {{ limit }} caractères",
+     *     maxMessage = "Votre nom ne doit pas comporter plus de {{ limit }} caractères."
+     * )
      */
     private $nom;
 

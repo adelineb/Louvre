@@ -62,6 +62,7 @@ class OrdersController extends Controller
             if ($form->isValid()) {
                 $data = $form->getData();
                 $session->set('Infos', $data);
+                dump($data);
             }
 
             return $this->redirectToRoute('louvre_billetterie_commande', array());
@@ -102,8 +103,9 @@ class OrdersController extends Controller
             if ($form->isValid()) {
                 $token = $request->request->get('stripeToken');
                 $stripe = $this->get('billetterie.stripe');
-                $retour = $stripe->chargeCard("sk_test_9ID0yEGE5VXLoD0nYybhVJWJ", $token, $totCommande);
+                $retour = $stripe->chargeCard($this->getParameter("stripe_private_key"), $token, $totCommande);
                 $commande = new Commande();
+                $commande->setCoderea($coderesa);
                 $commande->setEmail($commandeModel->getEmail());
                 foreach ($infos->getClients() as $client) {
                     $visiteur = new Client();
@@ -113,17 +115,20 @@ class OrdersController extends Controller
                     $visiteur->setDateNaissance($client->datenaissance);
                     $codeTarif = $em->getRepository('LouvreBilletterieBundle:Tarif')->find($client->codetarif);
                     $visiteur->setTarif($codeTarif);
-                    $em->persist($visiteur);
+                    //$em->persist($visiteur);
 
                     $billet = new Billet();
+                    $billet->setCommande($commande);
+                    $billet->setClient($visiteur);
                     $billet->setDate($session->get('date_visite'));
                     $billet->setClient($visiteur);
                     $billet->setCommande($commande);
                     $billet->setPrixBillet($client->prix);
                     $codeTypeBillet = $em->getRepository('LouvreBilletterieBundle:Type_billet')->find($session->get('type_billet'));
                     $billet->setTypebillet($codeTypeBillet);
-                    $em->persist($billet);
+                    //$em->persist($billet);
                 }
+                dump($commande);
                 $em->persist($commande);
                 $em->flush();
                 $email = $commande->getEmail();

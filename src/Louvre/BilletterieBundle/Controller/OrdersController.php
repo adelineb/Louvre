@@ -115,11 +115,10 @@ class OrdersController extends Controller
                     $visiteur->setDateNaissance($client->datenaissance);
                     $codeTarif = $em->getRepository('LouvreBilletterieBundle:Tarif')->find($client->codetarif);
                     $visiteur->setTarif($codeTarif);
-                    //$em->persist($visiteur);
 
                     $billet = new Billet();
-                    $billet->setCommande($commande);
                     $billet->setClient($visiteur);
+                    $commande->addBillet($billet);
                     $billet->setDate($session->get('date_visite'));
                     $billet->setClient($visiteur);
                     $billet->setCommande($commande);

@@ -93,11 +93,12 @@ class Commande
         return $this->coderea;
     }
 
-    /*public function addBillet(Billet $billet)
+    public function addBillet(Billet $billet)
     {
         $this->billets[] = $billet;
+        $billet->setCommande($this);
         return $this;
-    }*/
+    }
 
     public function getBillets()
     {

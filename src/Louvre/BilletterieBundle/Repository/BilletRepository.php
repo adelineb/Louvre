@@ -2,9 +2,6 @@
 
 namespace Louvre\BilletterieBundle\Repository;
 
-namespace Louvre\BilletterieBundle\Repository;
-use Louvre\BilletterieBundle\Entity\Billet;
-
 /**
  * BilletRepository
  *

@@ -81,14 +81,14 @@ class Commande
     }
 
 
-    public function setCoderea($coderea)
+    public function setCoderesa($coderea)
     {
         $this->coderea = $coderea;
 
         return $this;
     }
 
-    public function getCoderea()
+    public function getCoderesa()
     {
         return $this->coderea;
     }

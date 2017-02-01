@@ -21,6 +21,12 @@ class CommandeModel
      */
     private $email;
 
+    /**
+     * @var \string
+     */
+    private $coderesa;
+
+
     public function setPaiement($paiement)
     {
         $this->paiement = $paiement;
@@ -44,4 +50,17 @@ class CommandeModel
     {
         return $this->email;
     }
+
+    public function setCoderesa($coderesa)
+    {
+        $this->coderesa = $coderesa;
+
+        return $this;
+    }
+
+    public function getCoderesa()
+    {
+        return $this->xcoderesa;
+    }
+
 }

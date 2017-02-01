@@ -33,3 +33,10 @@ services:
         arguments:
             - "@mailer"
             - "@twig"
+
+    commande_assembler:
+        class: Louvre\BilletterieBundle\Assembler\CommandeAssembler
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - Louvre\BilletterieBundle\Entity\Tarif
+            - Louvre\BilletterieBundle\Entity\Type_billet

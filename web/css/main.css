@@ -9,6 +9,7 @@ header, .breadcrumb, .content, aside, footer {
     background-color: #555555;
     opacity: 0.8;
     color: white;
+    border-radius: 5px;
 }
 
 header, .breadcrumb, section {

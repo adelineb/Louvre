@@ -6,6 +6,7 @@ use Louvre\BilletterieBundle\Entity\Billet;
 use Louvre\BilletterieBundle\Entity\Client;
 use Louvre\BilletterieBundle\Entity\Commande;
 use Louvre\BilletterieBundle\Form\InfosType;
+use Louvre\BilletterieBundle\LouvreBilletterieBundle;
 use Louvre\BilletterieBundle\Model\BilletModel;
 use Louvre\BilletterieBundle\Model\ClientModel;
 use Louvre\BilletterieBundle\Model\ClientsListeModel;
@@ -33,6 +34,9 @@ class OrdersController extends Controller
             $form->handleRequest($request);
             if ($form->isValid()) {
                 $session = $request->getSession();
+                $data = $form->getData();
+                $session->set('Billet', $data);
+                dump($data);
                 $session->set('date_visite', $billet->getDate());
                 $session->set('type_billet', $billet->getTypebillet());
                 $session->set('nb_billet', $billet->getNbbillet());
@@ -62,7 +66,6 @@ class OrdersController extends Controller
             if ($form->isValid()) {
                 $data = $form->getData();
                 $session->set('Infos', $data);
-                dump($data);
             }
 
             return $this->redirectToRoute('louvre_billetterie_commande', array());
@@ -81,7 +84,7 @@ class OrdersController extends Controller
         $session = $request->getSession();
         $infos = $session->get('Infos');
 
-        $heure = $session->get('date_visite')->format('H');
+        //$heure = $session->get('date_visite')->format('H');
         foreach ($infos->getClients() as $client) {
             $tarif = $listTarifs->CalculTarif($client, $session->get('date_visite'), $session->get('type_billet'));
             $totCommande += $tarif;
@@ -90,74 +93,61 @@ class OrdersController extends Controller
         $session->set('Infos', $infos);
         $session->set('Total', $totCommande);
 
-        $str = "ABCDEFGHIJKLMNOPQRSTUVWYZ";
-        $str = str_split(str_shuffle($str), 4)[0];
-        $coderesa = rand(1000,9999).$str;
-
         $commandeModel = new CommandeModel();
         $form = $this->get('form.factory')->create(CommandeType::class, $commandeModel);
-        $email = '';
+        //$email = '';
+        //$commandeModel->setCoderesa($coderesa);
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
             $em = $this->getDoctrine()->getManager();
             if ($form->isValid()) {
                 $token = $request->request->get('stripeToken');
                 $stripe = $this->get('billetterie.stripe');
-                $retour = $stripe->chargeCard($this->getParameter("stripe_private_key"), $token, $totCommande);
-                $commande = new Commande();
-                $commande->setCoderea($coderesa);
-                $commande->setEmail($commandeModel->getEmail());
-                foreach ($infos->getClients() as $client) {
-                    $visiteur = new Client();
-                    $visiteur->setNom($client->nom);
-                    $visiteur->setPrenom($client->prenom);
-                    $visiteur->setPays($client->pays);
-                    $visiteur->setDateNaissance($client->datenaissance);
-                    $codeTarif = $em->getRepository('LouvreBilletterieBundle:Tarif')->find($client->codetarif);
-                    $visiteur->setTarif($codeTarif);
+                try {
+                    $stripe->chargeCard($this->getParameter("stripe_private_key"), $token, $totCommande);
+                    // on enregistre la commande en base
+                    $billetModel = $session->get('Billet');
+                    $infosModel = $session->get('Infos');
+                    $commande = $this->get('commande_assembler')->createCommande($commandeModel, $infosModel, $billetModel);
+                    $em->persist($commande);
+                    $em->flush();
 
-                    $billet = new Billet();
-                    $billet->setClient($visiteur);
-                    $commande->addBillet($billet);
-                    $billet->setDate($session->get('date_visite'));
-                    $billet->setClient($visiteur);
-                    $billet->setCommande($commande);
-                    $billet->setPrixBillet($client->prix);
-                    $codeTypeBillet = $em->getRepository('LouvreBilletterieBundle:Type_billet')->find($session->get('type_billet'));
-                    $billet->setTypebillet($codeTypeBillet);
-                    //$em->persist($billet);
+                    $session->set('commandeid', $commande->getId());
+
+                    $this->get('billetterie.email')->envoiMail($commande);
+                    return $this->redirectToRoute('louvre_billetterie_email');
+
+                } catch(\Stripe\Error\Card $e) {
+                    $this->addFlash('refus', 'Votre paiement a échoué. Veuillez ressaisir votre paiement. Merci.');
                 }
-                dump($commande);
-                $em->persist($commande);
-                $em->flush();
-                $email = $commande->getEmail();
-                $this->get('billetterie.email')->envoiMail($commande);
-                return $this->redirectToRoute('louvre_billetterie_email', array());
-                //return $this->render('LouvreBilletterieBundle:Orders:email.html.twig', array(
-                //    'coderesa' => $coderesa,
-                //));
             }
         }
         return $this->render('LouvreBilletterieBundle:Orders:commande.html.twig', array(
             'form' => $form->createView(),
             'montant' => $session->get('Total'),
-            'email' => $email,
+            //'email' => $email,
+            'stripe_public_key' => $this->getParameter('stripe_public_key'),
         ));
     }
 
     public function emailAction(Request $request)
     {
-        $str = "ABCDEFGHIJKLMNOPQRSTUVWYZ";
-        $str = str_split(str_shuffle($str), 4)[0];
-        $coderesa = rand(1000,9999).$str;
+        $session = $request->getSession();
+        $commandeid = $session->get('commandeid');
+        $commande = $this->getDoctrine()->getManager()->getRepository('LouvreBilletterieBundle:Commande')->find($commandeid);
         //$this->get('session')->clear();
-        /*if ($request->isMethod('POST')) {
-            dump("OK");
-                return $this->redirectToRoute('/', array());
-        }*/
+
         return $this->render('LouvreBilletterieBundle:Orders:email.html.twig', array(
-            'coderesa' =>$coderesa,
+            'coderesa' =>$commande->getCoderesa(),
         ));
     }
+
+    public function videsessionAction()
+    {
+        dump('videsession');
+        $this->get('session')->clear();
+        return $this->redirectToRoute('louvre_billetterie_homepage');
+    }
+
 
 }

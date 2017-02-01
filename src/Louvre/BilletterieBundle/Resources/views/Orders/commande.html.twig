@@ -77,9 +77,9 @@
                 <input type="submit" class="btn btn-default" value="Etape suivante >" />
                 <script
                         src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                        data-key="pk_test_Z7CIYfAdyS4BYAwdNQHhUF1A"
-                        {#data-key="{{ stripe_public_key }}"#}
-                        data-email= "{{ email }}"
+                        {#data-key="pk_test_Z7CIYfAdyS4BYAwdNQHhUF1A"#}
+                        data-key="{{ stripe_public_key }}"
+                        {#data-email= "{{ email }}"#}
                         data-currency="eur"
                         data-amount="{{ montant * 100 }}"
                         data-name="Billet(s) musée du Louvre"
@@ -110,7 +110,6 @@
                 {% else %}
                     / Tarif {{ billet.tarif }}
                 {% endif %}
-                {#/ Tarif {{ billet.tarif }}#}
             </p>
         {% endfor %}
 

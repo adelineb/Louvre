@@ -31,18 +31,13 @@
 
             <h1>Musée du Louvre</h1><img src="{{ asset('images/logo.jpg') }}" alt="logo"/>
 
-            <p>Réservation n° {{ coderesa }}</p>
+            <p>Réservation n° {{ coderesa }} </p>
 
-
-            <div class="row">
-                {#<div class="col-xs-12 col-md-6">#}
-            </div>
-
-        </fieldset>
+       </fieldset>
 
         <div>
             <div style="text-align:right">
-                <a href="{{ path('louvre_billetterie_homepage') }}"><input type="button" class="btn btn-default" value="OK" /></a>
+                <a href="{{ path('louvre_billetterie_videsession') }}"><input type="button" class="btn btn-default" value="OK" /></a>
             </div>
         </div>
 {% endblock %}
@@ -60,7 +55,12 @@
 
             <p>{{ billet.nom }}
                 {{ billet.prenom }}
-                / Tarif {{ billet.tarif }}</p>
+                {% if billet.tarif == "Réduit" %}
+                    / Tarif {{ billet.tarif }} *
+                {% else %}
+                    / Tarif {{ billet.tarif }}
+                {% endif %}
+             </p>
         {% endfor %}
 
     </div>

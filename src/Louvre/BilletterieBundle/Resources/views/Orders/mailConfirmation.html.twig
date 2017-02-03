@@ -15,10 +15,16 @@
 <p>Réservation n° {{ coderesa }}</p>
 
 
-<p>Visite pour le {{ app.session.get('date_visite')|date("d/m/Y") }}</p>
+<p>Visite pour le {{ app.session.get('Billet').getDate()|date("d/m/Y") }}, à partir de
+{% if app.session.get('Billet').getTypeBillet == "1" %}
+        9h
+    {% else %}
+        14h
+    {% endif %}
+</p>
 <hr />
-<!--à partir de-->
-Nombre de ticket(s) : {{ app.session.get('nb_billet') }}
+Nombre de ticket(s) : {{ app.session.get('Billet').getNbBillet() }}
+
 <div>
     {% set infos = app.session.get('Infos') %}
     {% for billet in infos.getClients() %}

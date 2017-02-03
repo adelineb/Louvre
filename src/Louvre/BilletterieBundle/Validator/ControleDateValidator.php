@@ -58,20 +58,24 @@ class ControleDateValidator extends ConstraintValidator
         if ($value->getDate() < $today) {
             $this->context->addViolation($contraint->message1);
         }
-        else if (in_array($value->getDate()->format('N'), $jourFermes))
+        if (in_array($value->getDate()->format('N'), $jourFermes))
         {
             $this->context->addViolation($contraint->message2);
         }
-        else if (in_array($value->getDate()->setTime(0, 0, 0)->getTimestamp(), $joursFeries))
+        if (in_array($value->getDate()->setTime(0, 0, 0)->getTimestamp(), $joursFeries))
         {
             $this->context->addViolation($contraint->message3);
         }
-        else if ($nbBillet >= 1000) {
+        if ($nbBillet >= 1000) {
             $this->context->addViolation($contraint->message4);
         }
-        else if ($value->getDate() == $today && $heureJour >= 14 && $value->getTypeBillet() == 1)
+        if ($value->getDate() == $today && $heureJour >= 14 && $value->getTypeBillet() == 1)
         {
             $this->context->addViolation($contraint->message5);
+        }
+        if ($value->getNbBillet() < 1)
+        {
+            $this->context->addViolation($contraint->message6);
         }
     }
 }

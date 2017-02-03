@@ -18,7 +18,6 @@ class BilletType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        dump($builder);
         $builder
             ->add('date',               DateType::class
                 , array(
@@ -34,15 +33,7 @@ class BilletType extends AbstractType
             ->add('typebillet',         ChoiceType::class, array(
                 'choices' =>array('Journée'=>'1', 'Demi-journée'=>'2'), 'expanded' => true))
             ->add('nbbillet',           IntegerType::class)
-
-            /*->add('date',               DateTimeType::class
-                , array(
-                    'format'=> 'ddMMMyyyy',
-                    'input' => 'datetime',
-                    'attr' => ['class' => 'js-datepicker'],
-                )
-            )*/
-      ;
+     ;
     }
     
     /**

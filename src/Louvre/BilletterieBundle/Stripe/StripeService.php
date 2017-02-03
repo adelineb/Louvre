@@ -33,7 +33,9 @@ class StripeService extends Controller
                 "currency" => "eur",
                 "source" => $token,
                 "description" => "Billet musée du Louvre",
+                //"email" => "ajacquelin27@hotmail.com",
             ));
+            return \Stripe\Token::retrieve($token)->email;
         } catch(\Stripe\Error\Card $e) {
             $request->getSession()->getFlashBag()->add('refus', 'Votre paiement a échoué. Veuillez ressaisir votre paiement. Merci.');
             return false;

@@ -2,6 +2,8 @@
 
 namespace Louvre\BilletterieBundle\Repository;
 
+use Louvre\BilletterieBundle\Entity\Commande;
+
 /**
  * CommandeRepository
  *
@@ -10,4 +12,19 @@ namespace Louvre\BilletterieBundle\Repository;
  */
 class CommandeRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * @return Commande
+     */
+    public function FindCodeResa($coderesa)
+    {
+        $qb = $this
+            ->createQueryBuilder('c')
+            ->where('c.coderesa = :coderesa')
+            ->setParameter('coderesa', $coderesa)
+        ;
+        return $qb
+            ->getQuery()
+            ->getOneOrNullResult()
+            ;
+    }
 }

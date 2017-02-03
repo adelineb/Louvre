@@ -44,10 +44,16 @@
 
 {% block aside %}
     <h4>Votre panier</h4>
-    Visite pour le {{ app.session.get('date_visite')|date("d/m/Y") }}
+   Visite pour le {{ app.session.get('Billet').getDate()|date("d/m/Y") }}
+    <p>{% if app.session.get('Billet').getTypeBillet == "1" %}
+            A partir de 9h
+        {% else %}
+            A partir de 14h
+        {% endif %}
+    </p>
+
     <hr />
-    <!--à partir de-->
-    Nombre de ticket(s) : {{ app.session.get('nb_billet') }}
+    Nombre de ticket(s) : {{ app.session.get('Billet').getNbBillet() }}
     <div>
         {% set infos = app.session.get('Infos') %}
         <br>
@@ -66,5 +72,5 @@
     </div>
 
     <hr />
-    <div id="total" class="text-center">Total : {{ app.session.get('Total')  }} €</div>
+    <div id="total" class="bold">Total : {{ app.session.get('Total')  }} €</div>
 {% endblock %}

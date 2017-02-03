@@ -6,7 +6,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 use Louvre\BilletterieBundle\Validator as AcmeAssert;
-use Louvre\BilletterieBundle\Validator\ControleNbBillet;
 
 /**
  * Class BilletModel
@@ -31,8 +30,6 @@ class BilletModel
 
     /**
      * @var \integer
-     * @Assert\Range(min=1, minMessage="Vous devez réserver au moins 1 billet")
-     * @ControleNbBillet
      */
     private $nbbillet;
 

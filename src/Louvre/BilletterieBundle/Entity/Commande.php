@@ -30,11 +30,11 @@ class Commande
     private $email;
 
     /**
-     * @var string
+     * àvar string
      *
-     * @ORM\Column(name="coderesa", type="string", length=255)
+     * @ORM\Column(name="coderea", type="string", length=255)
      */
-    private $coderesa;
+    private $coderea;
 
     /**
      * @ORM\OneToMany(targetEntity="Louvre\BilletterieBundle\Entity\Billet", mappedBy="commande", cascade={"persist"})
@@ -81,16 +81,16 @@ class Commande
     }
 
 
-    public function setCoderesa($coderesa)
+    public function setCoderesa($coderea)
     {
-        $this->coderesa = $coderesa;
+        $this->coderea = $coderea;
 
         return $this;
     }
 
     public function getCoderesa()
     {
-        return $this->coderesa;
+        return $this->coderea;
     }
 
     public function addBillet(Billet $billet)

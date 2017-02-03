@@ -10,17 +10,17 @@ use Louvre\BilletterieBundle\Model\CommandeModel;
 use Louvre\BilletterieBundle\Model\ClientsListeModel;
 use Doctrine\ORM\EntityManager;
 use Louvre\BilletterieBundle\Model\BilletModel;
-use Louvre\BilletterieBundle\Repository\CommandeRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 
 class CommandeAssembler
 {
     private $em;
-    private $commanderepository;
 
-    public function __construct(EntityManager $em, CommandeRepository $commandeRepository) {
+    public function __construct(EntityManager $em)
+    {
         $this->em = $em;
-        $this->commanderepository = $commandeRepository;
     }
 
     /**
@@ -29,12 +29,9 @@ class CommandeAssembler
     public function createCommande(CommandeModel $commandeModel, ClientsListeModel $infosModel, BilletModel $billetModel)
     {
         //$em = $this->getDoctrine()->getManager();
-        $coderesa = null;
-        while ($coderesa == null || $this->commanderepository->FindCodeResa($coderesa) <> null) {
-            $str = "ABCDEFGHIJKLMNOPQRSTUVWYZ";
-            $str = str_split(str_shuffle($str), 4)[0];
-            $coderesa = rand(1000,9999).$str;
-        }
+        $str = "ABCDEFGHIJKLMNOPQRSTUVWYZ";
+        $str = str_split(str_shuffle($str), 4)[0];
+        $coderesa = rand(1000,9999).$str;
 
         $commande = new Commande();
         $commande->setCoderesa($coderesa);

@@ -3,6 +3,9 @@
 namespace Louvre\BilletterieBundle\Calcul;
 
 use Louvre\BilletterieBundle\Repository\TarifRepository;
+use Louvre\BilletterieBundle\Entity\Tarif;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 
 class LouvreTarif
@@ -23,6 +26,8 @@ class LouvreTarif
         }
         else
         {
+            //$date1 = new \DateTime();
+            //$interval = $date1->diff($client->datenaissance);
             $interval = $datejour->diff($client->datenaissance);
             $age = $interval->y;
 

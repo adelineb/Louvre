@@ -12,10 +12,6 @@ header, .breadcrumb, .content, aside, footer {
     border-radius: 5px;
 }
 
-aside {
-    padding-right: 10px !important;
-}
-
 header, .breadcrumb, section {
     margin-bottom: 10px;
 }
@@ -33,19 +29,10 @@ main {
     padding: 5px 10px;
 }
 
-.content ul {
-    font-weight: bold;
-    font-style: italic;
-}
-
 .btn-default:hover {
     background-color: #345BBA;
     border-color: #345BBA;
     color: white;
-}
-
-#total {
-    font-weight: bold;
 }
 
 /*header */
@@ -58,9 +45,6 @@ header h1 {
 }
 
 /*formulaire */
-
-
-
 fieldset > legend {
     color: white;
 }

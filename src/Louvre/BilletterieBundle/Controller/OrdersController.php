@@ -2,13 +2,17 @@
 
 namespace Louvre\BilletterieBundle\Controller;
 
+use Louvre\BilletterieBundle\Entity\Billet;
+use Louvre\BilletterieBundle\Entity\Client;
 use Louvre\BilletterieBundle\Entity\Commande;
 use Louvre\BilletterieBundle\Form\InfosType;
+use Louvre\BilletterieBundle\LouvreBilletterieBundle;
 use Louvre\BilletterieBundle\Model\BilletModel;
 use Louvre\BilletterieBundle\Model\ClientModel;
 use Louvre\BilletterieBundle\Model\ClientsListeModel;
 use Louvre\BilletterieBundle\Model\CommandeModel;
 use Louvre\BilletterieBundle\Form\BilletType;
+use Louvre\BilletterieBundle\Form\CommandeType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -16,12 +20,14 @@ class OrdersController extends Controller
 {
     public function indexAction(Request $request)
     {
+        //$this->get('session')->clear();
         $billet = new BilletModel();
         $billet->setDate(new \DateTime());
-        if ($request->getSession()->get('Billet') <> null){
+        $session = $request->getSession();
+        if ($session->get('date_visite') <> null){
             $billet->setDate(new \DateTime());
-            $billet->setTypebillet($request->getSession()->get('Billet')->getTypeBillet());
-            $billet->setNbbillet($request->getSession()->get('Billet')->getNbBillet());
+            $billet->setTypebillet($session->get('type_billet'));
+            $billet->setNbbillet($session->get('nb_billet'));
         }
         $form = $this->get('form.factory')->create(BilletType::class, $billet);
         if ($request->isMethod('POST')) {
@@ -30,7 +36,10 @@ class OrdersController extends Controller
                 $session = $request->getSession();
                 $data = $form->getData();
                 $session->set('Billet', $data);
-
+                dump($data);
+                $session->set('date_visite', $billet->getDate());
+                $session->set('type_billet', $billet->getTypebillet());
+                $session->set('nb_billet', $billet->getNbbillet());
                 return $this->redirectToRoute('louvre_billetterie_infos', array());
            }
         }
@@ -42,9 +51,8 @@ class OrdersController extends Controller
     public function infosAction(Request $request)
     {
         $session = $request->getSession();
-        $billet = $request->getSession()->get('Billet');
         $tabClient = array();
-        for($nb=1; $nb <= $billet->getNbbillet(); $nb++)
+        for($nb=1; $nb <= $session->get('nb_billet'); $nb++)
         {
             $tabClient[] = new clientModel();
         }
@@ -75,10 +83,10 @@ class OrdersController extends Controller
 
         $session = $request->getSession();
         $infos = $session->get('Infos');
-        $billet = $session->get('Billet');
 
+        //$heure = $session->get('date_visite')->format('H');
         foreach ($infos->getClients() as $client) {
-            $tarif = $listTarifs->CalculTarif($client, $billet->getDate(), $billet->getTypebillet());
+            $tarif = $listTarifs->CalculTarif($client, $session->get('date_visite'), $session->get('type_billet'));
             $totCommande += $tarif;
         }
 
@@ -86,19 +94,18 @@ class OrdersController extends Controller
         $session->set('Total', $totCommande);
 
         $commandeModel = new CommandeModel();
-        //$form = $this->get('form.factory')->create(CommandeType::class, $commandeModel);
-
+        $form = $this->get('form.factory')->create(CommandeType::class, $commandeModel);
+        //$email = '';
+        //$commandeModel->setCoderesa($coderesa);
         if ($request->isMethod('POST')) {
-            //$form->handleRequest($request);
+            $form->handleRequest($request);
             $em = $this->getDoctrine()->getManager();
-            //if ($form->isValid()) {
+            if ($form->isValid()) {
                 $token = $request->request->get('stripeToken');
                 $stripe = $this->get('billetterie.stripe');
                 try {
                     $stripe->chargeCard($this->getParameter("stripe_private_key"), $token, $totCommande);
-
                     // on enregistre la commande en base
-                    $commandeModel->setEmail(\Stripe\Token::retrieve($token)->email);
                     $billetModel = $session->get('Billet');
                     $infosModel = $session->get('Infos');
                     $commande = $this->get('commande_assembler')->createCommande($commandeModel, $infosModel, $billetModel);
@@ -113,13 +120,12 @@ class OrdersController extends Controller
                 } catch(\Stripe\Error\Card $e) {
                     $this->addFlash('refus', 'Votre paiement a échoué. Veuillez ressaisir votre paiement. Merci.');
                 }
-            //}
+            }
         }
-        dump($commandeModel->getEmail());
         return $this->render('LouvreBilletterieBundle:Orders:commande.html.twig', array(
-            //'form' => $form->createView(),
+            'form' => $form->createView(),
             'montant' => $session->get('Total'),
-            'email' => $commandeModel->getEmail(),
+            //'email' => $email,
             'stripe_public_key' => $this->getParameter('stripe_public_key'),
         ));
     }
@@ -129,6 +135,7 @@ class OrdersController extends Controller
         $session = $request->getSession();
         $commandeid = $session->get('commandeid');
         $commande = $this->getDoctrine()->getManager()->getRepository('LouvreBilletterieBundle:Commande')->find($commandeid);
+        //$this->get('session')->clear();
 
         return $this->render('LouvreBilletterieBundle:Orders:email.html.twig', array(
             'coderesa' =>$commande->getCoderesa(),
@@ -137,6 +144,7 @@ class OrdersController extends Controller
 
     public function videsessionAction()
     {
+        dump('videsession');
         $this->get('session')->clear();
         return $this->redirectToRoute('louvre_billetterie_homepage');
     }

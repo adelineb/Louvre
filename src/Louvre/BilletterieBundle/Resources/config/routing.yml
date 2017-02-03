@@ -14,6 +14,10 @@ louvre_billetterie_email:
     path:     /confirmation
     defaults: { _controller: LouvreBilletterieBundle:Orders:email }
 
+louvre_billetterie_paiement:
+    path:     /paiement
+    defaults: { _controller: LouvreBilletterieBundle:Orders:paiement }
+
 louvre_billetterie_videsession:
     path:     /videsession
     defaults: { _controller: LouvreBilletterieBundle:Orders:videsession }

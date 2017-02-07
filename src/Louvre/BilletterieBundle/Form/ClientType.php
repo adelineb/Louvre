@@ -24,9 +24,15 @@ class ClientType extends AbstractType
             ->add('prenom',            TextType::class)
             ->add('pays',              CountryType::class, array(
                 'preferred_choices' => array('FR')))
-            ->add('dateNaissance',     BirthdayType::class, array(
-                    'format'=> 'ddMMMyyyy',)
-            )
+            //->add('dateNaissance',     BirthdayType::class, array(
+            //        'format'=> 'ddMMMyyyy',)
+            //)
+            ->add('dateNaissance', BirthdayType::class, array(
+                    'label' => 'Date de naissance',
+                    'format'=> 'ddMMMyyyy',
+                    'placeholder' => array(
+                        'year' => 'Année', 'month' => 'Mois', 'day' => 'Jour')
+            ))
             ->add('Tarifreduit',       checkboxType::class, array(
                 'required' => false,
             ))

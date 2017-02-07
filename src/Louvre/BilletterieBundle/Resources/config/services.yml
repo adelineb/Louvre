@@ -34,9 +34,14 @@ services:
             - "@mailer"
             - "@twig"
 
+    repositorycommande:
+        class: Doctrine\ORM\EntityRepository
+        factory: ["@doctrine.orm.entity_manager", getRepository]
+        arguments:
+            - Louvre\BilletterieBundle\Entity\Commande
+
     commande_assembler:
         class: Louvre\BilletterieBundle\Assembler\CommandeAssembler
         arguments:
             - "@doctrine.orm.entity_manager"
-            - Louvre\BilletterieBundle\Entity\Tarif
-            - Louvre\BilletterieBundle\Entity\Type_billet
+            - "@repositorycommande"

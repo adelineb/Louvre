@@ -12,10 +12,10 @@
 
 
 {% block main %}
-        {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+    {#{{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}#}
 
         {# Les erreurs générales du formulaire. #}
-        {{ form_errors(form) }}
+    {#{{ form_errors(form) }}#}
 
         <fieldset>
             <legend>Vérifier votre commande & Paiement</legend>
@@ -59,7 +59,7 @@
                 <p><i> * Merci de vous munir d'un justificatif (carte d'étudiant, carte militaire, carte d'invalidité, etc.) le jour de votre visite.</i></p>
                 <br/>
             {%  endif %}
-            <div class="form-group">
+           {# <div class="form-group">
                 <label class="required">Paiement</label>
                 {{ form_widget(form.paiement) }}
             </div>
@@ -67,19 +67,20 @@
                 <label class="required">Email</label>
                 {{ form_widget(form.email, {'attr': {'required': 'required'}}) }}
             </div>
-            {{ form_widget(form._token) }}
+            {{ form_widget(form._token) }}#}
         </fieldset>
 
         <div>
             <div style="text-align:right">
+                <form method="POST">
                 <a href=""><input type="button" class="btn btn-danger" value="Annuler" /></a>
                 <a href="{{ path('louvre_billetterie_infos') }}"><input type="button" class="btn btn-default" value="< Etape précédente" /></a>
-                <input type="submit" class="btn btn-default" value="Etape suivante >" />
+                {#<input type="submit" class="btn btn-default" value="Etape suivante >" />#}
                 <script
                         src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                         {#data-key="pk_test_Z7CIYfAdyS4BYAwdNQHhUF1A"#}
                         data-key="{{ stripe_public_key }}"
-                        {#data-email= "{{ email }}"#}
+                        data-email= "{{ email }}"
                         data-currency="eur"
                         data-amount="{{ montant * 100 }}"
                         data-name="Billet(s) musée du Louvre"
@@ -87,17 +88,24 @@
                         data-locale="auto"
                         data-zip-code="true">
                 </script>
+                    <button class="btn btn-default" >Etape suivante ></button>
+                </form>
             </div>
         </div>
-        {{ form_end(form) }}
+    {#{{ form_end(form) }}#}
 {% endblock %}
 
 {% block aside %}
     <h4>Votre panier</h4>
-    Visite pour le {{ app.session.get('date_visite')|date("d/m/Y") }}
+    Visite pour le {{ app.session.get('Billet').getDate()|date("d/m/Y") }}
+    <p>{% if app.session.get('Billet').getTypeBillet == "1" %}
+             A partir de 9h
+       {% else %}
+             A partir de 14h
+       {% endif %}
+    </p>
     <hr />
-    <!--à partir de-->
-    Nombre de ticket(s) : {{ app.session.get('nb_billet') }}
+    Nombre de ticket(s) : {{ app.session.get('Billet').getNbBillet() }}
     <div>
         {% set infos = app.session.get('Infos') %}
         <br>
@@ -116,7 +124,7 @@
     </div>
 
     <hr />
-    <div id="total" class="text-center">Total : {{ app.session.get('Total')  }} €</div>
+    <div id="total">Total : {{ app.session.get('Total')  }} €</div>
 {% endblock %}
 
 {% block javascripts %}

@@ -37,6 +37,11 @@ class ClientModel
 
     /**
      * @var \DateTime
+     * @Assert\Date()
+     * @Assert\LessThan(
+     *     "today",
+     *     message = "merci de vérifier la date de naissance"
+     * )
      */
     public $datenaissance;
 

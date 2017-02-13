@@ -20,6 +20,7 @@ services:
         arguments:
             - "@mailer"
             - "@twig"
+            - "@knp_snappy.pdf"
 
     validator.unique.controle_date:
         class: Louvre\BilletterieBundle\Validator\ControleDateValidator
@@ -45,3 +46,15 @@ services:
         arguments:
             - "@doctrine.orm.entity_manager"
             - "@repositorycommande"
+
+    #pdf_generator:
+    #   class: "%pdf_generator_class%"
+    #    arguments: ["@knp_snappy.pdf", "@twig"]
+
+
+    #pdf_generator:
+    #    class: "%pdf_generator_class%"
+    #    arguments: ["@knp_snappy.pdf", "@twig"]
+    #    options:
+    #        - { name: 'viewport-size', value: ‘1024x768’ }
+    #        - { name: 'page-size', value: 'A4' }

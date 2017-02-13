@@ -14,32 +14,32 @@
 
 {% block main %}
 
-        <fieldset>
-            <legend>Votre réservation</legend>
+    <fieldset>
+        <legend>Votre réservation</legend>
 
-            <p>Madame, Monsieur, </p>
+        <p>Madame, Monsieur, </p>
 
-
-            <div>
-                <p>
-                    Votre réservation à bien été prise en compte.<br/>
-                    Un email vient de vous être envoyé.<br/>
-                    Ce document servira de billet d'entrée pour le musée du Louvre.<br/>
-                    Conservez-le bien !
-                </p>
-            </div>
-
-            <h1>Musée du Louvre</h1><img src="{{ asset('images/logo.jpg') }}" alt="logo"/>
-
-            <p>Réservation n° {{ coderesa }} </p>
-
-       </fieldset>
 
         <div>
-            <div style="text-align:right">
-                <a href="{{ path('louvre_billetterie_videsession') }}"><input type="button" class="btn btn-default" value="OK" /></a>
-            </div>
+            <p>
+                Votre réservation à bien été prise en compte.<br/>
+                Un email vient de vous être envoyé.<br/>
+                Ce document servira de billet d'entrée pour le musée du Louvre.<br/>
+                Conservez-le bien !
+            </p>
         </div>
+
+        <h1>Musée du Louvre</h1><img src="{{ asset('images/logo.jpg') }}" alt="logo"/>
+
+        <p>Réservation n° {{ coderesa }} </p>
+
+   </fieldset>
+
+    <div>
+        <div style="text-align:right">
+            <a href="{{ path('louvre_billetterie_videsession') }}"><input type="button" class="btn btn-default" value="OK" /></a>
+        </div>
+    </div>
 {% endblock %}
 
 {% block aside %}

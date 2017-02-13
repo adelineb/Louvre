@@ -4,8 +4,7 @@
 <div>
     <p>
         Votre réservation à bien été prise en compte.<br/>
-        Un email vient de vous être envoyé.<br/>
-        Ce document servira de billet d'entrée pour le musée du Louvre.<br/>
+        Cet email vous servira de billet d'entrée pour le musée du Louvre.<br/>
         Conservez-le bien !
     </p>
 </div>
@@ -23,7 +22,6 @@
         {% endif %}
 </p>
 <hr />
-<!--à partir de-->
 Nombre de ticket(s) : {{ app.session.get('Billet').getNbBillet() }}
 <div>
     {% set infos = app.session.get('Infos') %}

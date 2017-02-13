@@ -10,36 +10,39 @@
 
 {% block main %}
 
-        {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+    {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
 
-        {# Les erreurs générales du formulaire. #}
-        {{ form_errors(form) }}
+    {# Les erreurs générales du formulaire. #}
+    {{ form_errors(form) }}
 
-        <fieldset>
-            <legend>Choisissez une date</legend>
+    <fieldset>
+        <legend>Choisissez une date</legend>
 
-            <div id="datepicker">
-                <label>Date de la visite</label>
-                {{ form_errors(form.date) }}
-                {{ form_widget(form.date) }}
-            </div>
-            <div class="form-group">
-                <label>Visite</label>
-                    {{ form_widget(form.typebillet) }}
-            </div>
-            <div class="form-group">
-                <label class="required">Nombre de billets</label>
-                {{ form_widget(form.nbbillet, {'attr': {'required': 'required'}}) }}
-            </div>
-
-        </fieldset>
-
-        <div>
-            <div style="text-align:right">
-                <input type="submit" class="btn btn-default" value="Etape suivante >" />
-            </div>
+        <div id="datepicker">
+            <label>Date de la visite</label>
+            {{ form_errors(form.date) }}
+            {{ form_widget(form.date) }}
         </div>
-        {{ form_end(form) }}
+        <br/>
+        <div class="form-group">
+            <label>Visite à la </label>
+                {{ form_widget(form.typebillet) }}
+        </div>
+        <div class="form-group">
+            <label class="required">Nombre de billets</label>
+            {{ form_widget(form.nbbillet, {'attr': {'required': 'required'}}) }}
+        </div>
+
+    </fieldset>
+    {{ form_widget(form._token) }}
+    {{ form_rest(form) }}
+
+    <div>
+        <div style="text-align:right">
+            <input type="submit" class="btn btn-default" value="Etape suivante >" />
+        </div>
+    </div>
+    {{ form_end(form) }}
 
 {% endblock %}
 {% block aside %}
@@ -76,7 +79,7 @@
                 //firstDay: 1,
                 weekStart: 1,
                 todayHighlight: true,
-                daysOfWeekDisabled: "0"
+                daysOfWeekDisabled: "0, 2",
             })
         })
 

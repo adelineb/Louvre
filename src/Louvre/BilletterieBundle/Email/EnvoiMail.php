@@ -4,6 +4,9 @@
 namespace Louvre\BilletterieBundle\Email;
 
 use Louvre\BilletterieBundle\Entity\Commande;
+use Knp\Bundle\SnappyBundle\Snappy\LoggableGenerator;
+use Knp\Snappy\Pdf;
+
 
 class EnvoiMail
 {
@@ -12,15 +15,38 @@ class EnvoiMail
      */
     private $mailer;
     private $twig;
-    public function __construct(\Swift_Mailer $mailer, \Twig_Environment $twig)
+    private $pdf;
+    //CONST PATH_PDF = __DIR__. '/tmp/reservation/';
+
+    public function __construct(\Swift_Mailer $mailer, \Twig_Environment $twig, LoggableGenerator $pdf)
     {
         $this->mailer = $mailer;
         $this->twig = $twig;
+        $this->pdf = $pdf;
+    }
+
+    public function generatePDF(Commande $commande)
+    {
+        $coderesa = $commande->getCoderesa();
+        $path = __DIR__.  '\tmp\reservation' . $coderesa . '.pdf';
+        dump($path);
+        $this->pdf->generateFromHtml(
+            $this->twig->render(
+                'LouvreBilletterieBundle:Orders:mailConfirmation.html.twig',
+                array(
+                    'coderesa' => $commande->getCoderesa()
+                )
+            ),
+            $path
+        );
+        dump($path);
     }
 
     public function envoiMail(Commande $commande)
     {
+        $this->generatePDF($commande);
         $message = new \Swift_Message();
+
         // Composition du message du mail
         $message
             ->setCharset('UTF-8')

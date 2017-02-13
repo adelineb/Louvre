@@ -9,7 +9,7 @@ framework:
 
 web_profiler:
     toolbar: true
-    intercept_redirects: false
+    intercept_redirects: true
 
 monolog:
     handlers:
@@ -37,3 +37,7 @@ swiftmailer:
     username: "%mailer_user%"
     password: "%mailer_password%"
 
+#knp_snappy:
+#    pdf:
+#        enabled:    true
+#        binary:     "%kernel.root_dir%/../bin/wkhtmltox/bin/wkhtmltopdf"

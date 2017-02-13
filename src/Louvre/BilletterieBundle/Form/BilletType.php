@@ -18,7 +18,6 @@ class BilletType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        dump($builder);
         $builder
             ->add('date',               DateType::class
                 , array(

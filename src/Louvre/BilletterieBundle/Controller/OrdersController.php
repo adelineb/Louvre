@@ -107,6 +107,8 @@ class OrdersController extends Controller
                 $session->set('commandeid', $commande->getId());
 
                 $this->get('billetterie.email')->envoiMail($commande);
+
+
                 return $this->redirectToRoute('louvre_billetterie_email');
 
             } catch(\Stripe\Error\Card $e) {

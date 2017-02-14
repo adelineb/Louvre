@@ -15,10 +15,12 @@ class EnvoiMail
      */
     private $mailer;
     private $twig;
-    private $pdf;
-    //CONST PATH_PDF = __DIR__. '/tmp/reservation/';
+    //private $pdf;
+    //CONST PATH_PDF = __DIR__. '\tmp\reservation/';
+    CONST PATH_PDF = __DIR__.'/../../../../web/EnvoiPDF/';
 
     public function __construct(\Swift_Mailer $mailer, \Twig_Environment $twig, LoggableGenerator $pdf)
+    //public function __construct(\Swift_Mailer $mailer, \Twig_Environment $twig, LoggableGenerator $pdf)
     {
         $this->mailer = $mailer;
         $this->twig = $twig;
@@ -27,19 +29,16 @@ class EnvoiMail
 
     public function generatePDF(Commande $commande)
     {
-        $coderesa = $commande->getCoderesa();
-        $path = __DIR__.  '\tmp\reservation' . $coderesa . '.pdf';
-        dump($path);
-        $this->pdf->generateFromHtml(
+     $this->pdf->generateFromHtml(
             $this->twig->render(
-                'LouvreBilletterieBundle:Orders:mailConfirmation.html.twig',
+                'LouvreBilletterieBundle:Orders:BilletPDF.html.twig',
                 array(
                     'coderesa' => $commande->getCoderesa()
                 )
             ),
-            $path
+            self::PATH_PDF.$commande->getCoderesa() .'.pdf'
+        //$path
         );
-        dump($path);
     }
 
     public function envoiMail(Commande $commande)
@@ -55,7 +54,8 @@ class EnvoiMail
                 array('coderesa' => $commande->getCoderesa(),)))
             ->setContentType('text/html')
             ->setTo($commande->getEmail())
-            ->setFrom(array('adeline.barre62@gmail.com' => 'Musée du Louvre'));
+            ->setFrom(array('adeline.barre62@gmail.com' => 'Musée du Louvre'))
+            ->attach(\Swift_Attachment::fromPath(self::PATH_PDF.$commande->getCoderesa() .'.pdf'));
         // Envoi du message au visiteur
         $this->mailer->send($message);
     }

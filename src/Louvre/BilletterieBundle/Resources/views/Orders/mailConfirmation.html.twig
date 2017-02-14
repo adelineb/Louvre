@@ -24,10 +24,23 @@
 <hr />
 Nombre de ticket(s) : {{ app.session.get('Billet').getNbBillet() }}
 <div>
+    {% set i = 0 %}
     {% set infos = app.session.get('Infos') %}
     {% for billet in infos.getClients() %}
 
-        <p>{{ billet.nom }} {{ billet.prenom }} / Tarif {{ billet.tarif }}</p>
+        <p>{{ billet.nom }} {{ billet.prenom }} /
+
+        {% if billet.tarif == "Réduit" %}
+            {{ billet.tarif }} *
+            {% set i = i + 1 %}
+        {% else %}
+            {{ billet.tarif }}
+        {% endif %}
+        </p>
     {% endfor %}
+    {% if i >= 1 %}
+        <p><i> * Pour les "Tarif Réduit", merci de vous munir d'un justificatif (carte d'étudiant, carte militaire, carte d'invalidité, etc.) le jour de votre visite.</i></p>
+        <br/>
+    {%  endif %}
 
 </div>

@@ -13,8 +13,6 @@ use Louvre\BilletterieBundle\Model\BilletModel;
 use Louvre\BilletterieBundle\Model\ClientModel;
 use Louvre\BilletterieBundle\Repository\TarifRepository;
 
-//use LouvreTarifTest.php;
-
 
 class LouvreTarifTest extends \PHPUnit_Framework_TestCase
 {

@@ -2,26 +2,28 @@
 
 namespace tests\Louvre\BilletterieBundle\Repository;
 
+use Louvre\BilletterieBundle\Entity\Tarif;
+use Louvre\BilletterieBundle\Repository\TarifRepository;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-
-class TarifRepositoryTest extends KernelTestCase
-//class TarifRepositoryTest extends \PHPUnit_Framework_TestCase
+class TarifRepositoryTest extends WebTestCase
 {
-    private $em;
+    private $tarifRepository;
 
     public function setUp()
     {
-        self::bootKernel();
-        $this->em = static::$kernel->getContainer()
-            ->get('doctrine')
-            ->getManager();
+        //self::bootKernel();
+        $kernel = static::createKernel();
+        $kernel->boot();
+        $this->tarifRepository = static::$kernel->getContainer()
+            ->get('doctrine.orm.default_entity_manager')
+            ->getRepository('LouvreBilletterieBundle:Tarif');
     }
 
     public function testgetTarifTest()
     {
-        $tarif = $this->em
-            ->getRepository('LouvreBilletterieBundle:Tarif')
+        $tarif = $this->tarifRepository
+            //->getRepository('LouvreBilletterieBundle:Tarif')
             ->getTarif(5);
 
         $this->assertEquals(8, $tarif->getTarif());

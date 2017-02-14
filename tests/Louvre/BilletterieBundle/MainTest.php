@@ -1,9 +1,15 @@
 <?php
 
-class MathTest extends PHPUnit_Framework_TestCase
-{
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-    public function MainTest()
+class MainTest extends WebTestCase
+{
+    /*public function setUp()
+    {
+        self::bootKernel();
+    }*/
+
+    public function testMainTest()
     {
         $this->assertContains('Musée du Louvre', '#Container h1');
     }

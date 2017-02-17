@@ -15,37 +15,20 @@ class StripeService extends Controller
      * @var string
      */
     private $apiKey;
-    /**
-     * @var string
-     */
-    private $apiToken;
 
-    public function __construct($apiKey, $apiToken)
+
+    public function __construct($apiKey)
     {
         $this->apiKey = $apiKey;
-        $this->apiToken = $apiToken;
     }
-    public function chargeCard($api, $token, $price){
-        \Stripe\Stripe::setApiKey($api);
-        try {
-            \Stripe\Charge::create(array(
-                "amount" =>  $price * 100,
-                "currency" => "eur",
-                "source" => $token,
-                "description" => "Billet musée du Louvre",
-            ));
-            return \Stripe\Token::retrieve($token)->email;
-        } catch(\Stripe\Error\Card $e) {
-            $request->getSession()->getFlashBag()->add('refus', 'Votre paiement a échoué. Veuillez ressaisir votre paiement. Merci.');
-            return false;
-        }
-    }
-    public function getApiKey()
-    {
-        return $this->apiKey;
-    }
-    public function getApiToken()
-    {
-        return $this->apiToken;
+    public function chargeCard($token, $price){
+        \Stripe\Stripe::setApiKey($this->apiKey);
+        \Stripe\Charge::create(array(
+            "amount" =>  $price * 100,
+            "currency" => "eur",
+            "source" => $token,
+            "description" => "Billet musée du Louvre",
+        ));
+        return \Stripe\Token::retrieve($token)->email;
     }
 }

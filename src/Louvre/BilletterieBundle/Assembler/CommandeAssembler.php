@@ -18,10 +18,11 @@ class CommandeAssembler
     private $em;
     private $commanderepository;
 
-    public function __construct(EntityManager $em, CommandeRepository $commandeRepository)
+    //public function __construct(EntityManager $em, CommandeRepository $commandeRepository)
+    public function __construct(EntityManager $em)
     {
         $this->em = $em;
-        $this->commanderepository = $commandeRepository;
+       //$this->commanderepository = $commandeRepository;
     }
 
     /**
@@ -31,7 +32,8 @@ class CommandeAssembler
     {
         //$em = $this->getDoctrine()->getManager();
         $coderesa = null;
-        while ($coderesa == null || $this->commanderepository->FindCodeResa($coderesa) <> null) {
+        //while ($coderesa == null || $this->commanderepository->FindCodeResa($coderesa) <> null) {
+        while ($coderesa == null || $this->em->getRepository('LouvreBilletterieBundle:Commande')->FindCodeResa($coderesa) <> null) {
             $str = "ABCDEFGHIJKLMNOPQRSTUVWYZ";
             $str = str_split(str_shuffle($str), 4)[0];
             $coderesa = rand(1000,9999).$str;
@@ -60,5 +62,4 @@ class CommandeAssembler
         }
         return $commande;
     }
-
 }

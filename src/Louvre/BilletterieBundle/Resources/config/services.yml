@@ -32,8 +32,7 @@ services:
     billetterie.stripe:
         class: Louvre\BilletterieBundle\Stripe\StripeService
         arguments:
-            - "@mailer"
-            - "@twig"
+            - '%stripe_private_key%'
 
     repositorycommande:
         class: Doctrine\ORM\EntityRepository
@@ -45,7 +44,6 @@ services:
         class: Louvre\BilletterieBundle\Assembler\CommandeAssembler
         arguments:
             - "@doctrine.orm.entity_manager"
-            - "@repositorycommande"
 
     #pdf_generator:
     #   class: "%pdf_generator_class%"

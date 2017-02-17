@@ -14,7 +14,7 @@ class EnvoiMail
      */
     private $mailer;
     private $twig;
-    CONST PATH_PDF = __DIR__.'/../../../../web/EnvoiPDF/';
+    CONST PATH_PDF = __DIR__.'/../../../../web/uploads/';
 
     public function __construct(\Swift_Mailer $mailer, \Twig_Environment $twig, LoggableGenerator $pdf)
     {

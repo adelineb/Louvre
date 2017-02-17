@@ -1,4 +1,15 @@
-{% extends '@LouvreBilletterie/layout.html.twig' %}
+{% extends "LouvreBilletterieBundle::layout.html.twig" %}
+
+{% block title %}
+    Billetterie - {{ parent() }}
+{% endblock %}
+
+{% block filariane %}
+    <li>Date de la visite</li>
+    <li>Informations</li>
+    <li>Confirmation</li>
+{% endblock %}
+
 {% block content %}
     <section class="row">
         <div>

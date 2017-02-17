@@ -60,7 +60,7 @@ class CommandeModel
 
     public function getCoderesa()
     {
-        return $this->xcoderesa;
+        return $this->coderesa;
     }
 
 }

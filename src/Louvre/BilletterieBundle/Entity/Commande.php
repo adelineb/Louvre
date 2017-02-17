@@ -100,9 +100,21 @@ class Commande
         return $this;
     }
 
+    /**
+     * @return Billet[]
+     */
     public function getBillets()
     {
         return $this->billets;
+    }
+
+    public function getTotalCde()
+    {
+        $total = 0;
+        foreach($this->getBillets() as $billet) {
+            $total += $billet->getPrixBillet();
+        }
+        return $total;
     }
 }
 

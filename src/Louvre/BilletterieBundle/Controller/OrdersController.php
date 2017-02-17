@@ -2,17 +2,13 @@
 
 namespace Louvre\BilletterieBundle\Controller;
 
-use Louvre\BilletterieBundle\Entity\Billet;
-use Louvre\BilletterieBundle\Entity\Client;
 use Louvre\BilletterieBundle\Entity\Commande;
 use Louvre\BilletterieBundle\Form\InfosType;
-use Louvre\BilletterieBundle\LouvreBilletterieBundle;
 use Louvre\BilletterieBundle\Model\BilletModel;
 use Louvre\BilletterieBundle\Model\ClientModel;
 use Louvre\BilletterieBundle\Model\ClientsListeModel;
 use Louvre\BilletterieBundle\Model\CommandeModel;
 use Louvre\BilletterieBundle\Form\BilletType;
-use Louvre\BilletterieBundle\Form\CommandeType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -22,11 +18,6 @@ class OrdersController extends Controller
     {
         $billet = new BilletModel();
         $billet->setDate(new \DateTime());
-        if ($request->getSession()->get('Billet') <> null){
-            $billet->setDate(new \DateTime());
-            $billet->setTypebillet($request->getSession()->get('Billet')->getTypeBillet());
-            $billet->setNbbillet($request->getSession()->get('Billet')->getNbBillet());
-        }
         $form = $this->get('form.factory')->create(BilletType::class, $billet);
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
@@ -73,7 +64,6 @@ class OrdersController extends Controller
 
     public function commandeAction(Request $request)
     {
-        $totCommande = 0;
         $listTarifs = $this->get('billetterie.tarif');
 
         $session = $request->getSession();
@@ -81,33 +71,32 @@ class OrdersController extends Controller
         $billet = $session->get('Billet');
 
         foreach ($infos->getClients() as $client) {
-            $tarif = $listTarifs->CalculTarif($client, $billet->getDate(), $billet->getTypebillet());
-            //$tarif = $listTarifs->CalculTarif($client, $billet);
-            $totCommande += $tarif;
+            $listTarifs->CalculTarif($client, $billet->getDate(), $billet->getTypebillet());
         }
 
         $session->set('Infos', $infos);
-        $session->set('Total', $totCommande);
 
         $commandeModel = new CommandeModel();
+
+        $billetModel = $session->get('Billet');
+        $infosModel = $session->get('Infos');
+        $commande = $this->get('commande_assembler')->createCommande($commandeModel, $infosModel, $billetModel);
+        $session->set('Total', $commande->getTotalCde());
+
         if ($request->isMethod('POST')) {
             $em = $this->getDoctrine()->getManager();
+
             $token = $request->request->get('stripeToken');
             $stripe = $this->get('billetterie.stripe');
+
             try {
-                $stripe->chargeCard($this->getParameter("stripe_private_key"), $token, $totCommande);
-                // on enregistre la commande en base
-                $commandeModel->setEmail(\Stripe\Token::retrieve($token)->email);
-                $billetModel = $session->get('Billet');
-                $infosModel = $session->get('Infos');
-                $commande = $this->get('commande_assembler')->createCommande($commandeModel, $infosModel, $billetModel);
+                $stripe->chargeCard($this->getParameter("stripe_private_key"), $token, $commande->getTotalCde());
+                $commande->setEmail(\Stripe\Token::retrieve($token)->email);
                 $em->persist($commande);
                 $em->flush();
 
                 $session->set('commandeid', $commande->getId());
-
                 $this->get('billetterie.email')->envoiMail($commande);
-
 
                 return $this->redirectToRoute('louvre_billetterie_email');
 
@@ -117,7 +106,6 @@ class OrdersController extends Controller
         }
         return $this->render('LouvreBilletterieBundle:Orders:commande.html.twig', array(
             'montant' => $session->get('Total'),
-            //'email' => $email,
             'email' => $commandeModel->getEmail(),
             'stripe_public_key' => $this->getParameter('stripe_public_key'),
         ));

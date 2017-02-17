@@ -5,7 +5,6 @@ namespace Louvre\BilletterieBundle\Email;
 
 use Louvre\BilletterieBundle\Entity\Commande;
 use Knp\Bundle\SnappyBundle\Snappy\LoggableGenerator;
-use Knp\Snappy\Pdf;
 
 
 class EnvoiMail
@@ -15,12 +14,9 @@ class EnvoiMail
      */
     private $mailer;
     private $twig;
-    //private $pdf;
-    //CONST PATH_PDF = __DIR__. '\tmp\reservation/';
     CONST PATH_PDF = __DIR__.'/../../../../web/EnvoiPDF/';
 
     public function __construct(\Swift_Mailer $mailer, \Twig_Environment $twig, LoggableGenerator $pdf)
-    //public function __construct(\Swift_Mailer $mailer, \Twig_Environment $twig, LoggableGenerator $pdf)
     {
         $this->mailer = $mailer;
         $this->twig = $twig;
@@ -37,7 +33,6 @@ class EnvoiMail
                 )
             ),
             self::PATH_PDF.$commande->getCoderesa() .'.pdf'
-        //$path
         );
     }
 

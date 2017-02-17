@@ -10,8 +10,6 @@ use Louvre\BilletterieBundle\Model\CommandeModel;
 use Louvre\BilletterieBundle\Model\ClientsListeModel;
 use Doctrine\ORM\EntityManager;
 use Louvre\BilletterieBundle\Model\BilletModel;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
 use Louvre\BilletterieBundle\Repository\CommandeRepository;
 
 

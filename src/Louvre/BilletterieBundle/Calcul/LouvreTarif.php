@@ -3,10 +3,6 @@
 namespace Louvre\BilletterieBundle\Calcul;
 
 use Louvre\BilletterieBundle\Repository\TarifRepository;
-use Louvre\BilletterieBundle\Model\BilletModel;
-use Louvre\BilletterieBundle\Entity\Tarif;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Session\Session;
 
 
 class LouvreTarif
@@ -19,7 +15,6 @@ class LouvreTarif
     }
 
     public function calculTarif($client, $dateVisite, $typebillet)
-    //public function calculTarif($client, $billetModel)
     {
         $datejour = new \DateTime();
         if ($client->tarifreduit == true)
@@ -36,7 +31,6 @@ class LouvreTarif
 
 
         $prixBillet = $tarif->getTarif();
-//        if (($typebillet =="2") || ($dateVisite->format('Ymd') === $datejour->format('Ymd'))) {
         if (($typebillet =="2") || ($dateVisite->format('Ymd') === $datejour->format('Ymd'))) {
             if ($datejour->format('H') >= 14)
             {

@@ -1,6 +1,7 @@
 <?php
 
 namespace Louvre\BilletterieBundle\Repository;
+
 use Louvre\BilletterieBundle\Entity\Tarif;
 
 /**

@@ -8,17 +8,12 @@
 
     {% block stylesheets %}
         {# On charge le CSS de bootstrap depuis le site directement #}
-        {#<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">#}
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
               integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
               crossorigin="anonymous">
-        {#<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.min.css">#}
         <link rel="stylesheet" href="{{ asset('css/bootstrap-datepicker2.css') }}">
         <link rel="stylesheet" href="{{ asset('css/main.css') }}">
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
-
-        {#<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-        <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/themes/ui-lightness/jquery-ui.css" type="text/css" media="all"/>#}
     {% endblock %}
 
 </head>
@@ -36,7 +31,6 @@
                 <h2>Billetterie en ligne</h2>
             </div>
         </header>
-
 
         <section class="row">
             <ol class="breadcrumb">
@@ -56,6 +50,7 @@
                 {% endblock %}
             </aside>
         </section>
+
         <footer class="row text-center">
             Copyright © 2017 - Adeline BARRÉ - Tous droits réservés<br/>
             <a href="/mentions-legales" title="Mentions légales">Mentions légales</a>
@@ -67,9 +62,6 @@
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script src="{{ asset('js/bootstrap-datepicker2.js') }}"></script>
         <script src="{{ asset('js/bootstrap-datepicker.fr.min.js') }}"></script>
-        {#<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"></script>
-        <script type="text/javascript" src=" http://jquery-ui.googlecode.com/svn/trunk/ui/i18n/jquery.ui.datepicker-fr.js"></script>#}
      {% endblock %}
 
 </body>

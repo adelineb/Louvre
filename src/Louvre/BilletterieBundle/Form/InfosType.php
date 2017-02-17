@@ -2,15 +2,10 @@
 
 namespace Louvre\BilletterieBundle\Form;
 
-use Louvre\BilletterieBundle\Entity\Client;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Louvre\BilletterieBundle\Model\ClientModel;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 
 class InfosType extends AbstractType

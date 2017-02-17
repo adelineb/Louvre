@@ -6,7 +6,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -24,9 +23,6 @@ class ClientType extends AbstractType
             ->add('prenom',            TextType::class)
             ->add('pays',              CountryType::class, array(
                 'preferred_choices' => array('FR')))
-            //->add('dateNaissance',     BirthdayType::class, array(
-            //        'format'=> 'ddMMMyyyy',)
-            //)
             ->add('dateNaissance', BirthdayType::class, array(
                     'label' => 'Date de naissance',
                     'format'=> 'ddMMMyyyy',

@@ -24,7 +24,7 @@ class BilletTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(is_null($this->billet->getId()));
     }
 
-    public function testGetCommandeTest()
+    public function testGetCommande()
     {
         $this->billet->setCommande(new Commande());
         $reservation = $this->billet->getCommande();

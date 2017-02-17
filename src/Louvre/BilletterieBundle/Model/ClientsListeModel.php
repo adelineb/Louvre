@@ -8,10 +8,6 @@
 
 namespace Louvre\BilletterieBundle\Model;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Louvre\BilletterieBundle\Model\ClientModel;
-
-
 class ClientsListeModel
 {
     /**

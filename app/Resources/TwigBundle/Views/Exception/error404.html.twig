@@ -1,12 +1,15 @@
-{% extends '@LouvreBilletterie/layout.html.twig' %}
-{% block content %}
-    <section class="row">
-        <div>
-            <div class="content text-center">
-                <div class="jumbotron">
-                    La page demandée n'existe pas, voulez-vous <a href="{{ path('/') }}">retourner sur la page d'accueil</a> ?
-                </div>
-            </div>
-        </div>
-    </section>
+{% extends "LouvreBilletterieBundle::layout.html.twig" %}
+
+{% block title %}
+    Billetterie - {{ parent() }}
+{% endblock %}
+
+{% block main %}
+    <div>
+        La page demandée n'existe pas !{#, <a href="{{ path('/') }}">voulez-vous retourner sur la page d'accueil</a> ?#}
+    </div>
+
+{% endblock %}
+
+{% block aside %}
 {% endblock %}

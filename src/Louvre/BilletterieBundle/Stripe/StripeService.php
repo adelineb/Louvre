@@ -23,12 +23,14 @@ class StripeService extends Controller
     }
     public function chargeCard($token, $price){
         \Stripe\Stripe::setApiKey($this->apiKey);
-        \Stripe\Charge::create(array(
-            "amount" =>  $price * 100,
-            "currency" => "eur",
-            "source" => $token,
-            "description" => "Billet musée du Louvre",
-        ));
-        return \Stripe\Token::retrieve($token)->email;
+        if ($price > 0) {
+            \Stripe\Charge::create(array(
+                "amount" =>  $price * 100,
+                "currency" => "eur",
+                "source" => $token,
+                "description" => "Billet musée du Louvre",
+            ));
+            return \Stripe\Token::retrieve($token)->email;
+        }
     }
 }

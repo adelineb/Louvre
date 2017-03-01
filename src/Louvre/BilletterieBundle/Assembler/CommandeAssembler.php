@@ -10,19 +10,16 @@ use Louvre\BilletterieBundle\Model\CommandeModel;
 use Louvre\BilletterieBundle\Model\ClientsListeModel;
 use Doctrine\ORM\EntityManager;
 use Louvre\BilletterieBundle\Model\BilletModel;
-use Louvre\BilletterieBundle\Repository\CommandeRepository;
 
 
 class CommandeAssembler
 {
     private $em;
-    private $commanderepository;
 
     //public function __construct(EntityManager $em, CommandeRepository $commandeRepository)
     public function __construct(EntityManager $em)
     {
         $this->em = $em;
-       //$this->commanderepository = $commandeRepository;
     }
 
     /**
@@ -30,9 +27,7 @@ class CommandeAssembler
      */
     public function createCommande(CommandeModel $commandeModel, ClientsListeModel $infosModel, BilletModel $billetModel)
     {
-        //$em = $this->getDoctrine()->getManager();
         $coderesa = null;
-        //while ($coderesa == null || $this->commanderepository->FindCodeResa($coderesa) <> null) {
         while ($coderesa == null || $this->em->getRepository('LouvreBilletterieBundle:Commande')->FindCodeResa($coderesa) <> null) {
             $str = "ABCDEFGHIJKLMNOPQRSTUVWYZ";
             $str = str_split(str_shuffle($str), 4)[0];

@@ -20,3 +20,8 @@ parameters:
 
     stripe_private_key: sk_test_9ID0yEGE5VXLoD0nYybhVJWJ
     stripe_public_key: pk_test_Z7CIYfAdyS4BYAwdNQHhUF1A
+
+rules:
+    symfony.obvious_csrf_key:
+        enabled: true
+        

@@ -8,7 +8,6 @@ use Louvre\BilletterieBundle\Repository\TarifRepository;
 class LouvreTarif
 {
     private $tarifRepository;
-    private $billetModel;
 
     public function __construct(TarifRepository $tarifRepository) {
         $this->tarifRepository = $tarifRepository;

@@ -36,6 +36,9 @@ class OrdersController extends Controller
     {
         $session = $request->getSession();
         $billet = $request->getSession()->get('Billet');
+        if ($billet==null) {
+            return $this->redirectToRoute('louvre_billetterie_homepage');
+        }
         $client = new ClientsListeModel($billet->getNbbillet());
 
         $form = $this->get('form.factory')->create(InfosType::class, $client);
@@ -48,7 +51,7 @@ class OrdersController extends Controller
                 $session->set('Infos', $data);
             }
 
-            return $this->redirectToRoute('louvre_billetterie_commande', array());
+            return $this->redirectToRoute('louvre_billetterie_commande');
         }
         return $this->render('LouvreBilletterieBundle:Orders:infos.html.twig', array(
             'listeclient' => $client,
@@ -60,6 +63,10 @@ class OrdersController extends Controller
     {
         $session = $request->getSession();
         $infos = $session->get('Infos');
+
+        if ($infos==null) {
+            return $this->redirectToRoute('louvre_billetterie_infos');
+        }
         $billet = $session->get('Billet');
 
         foreach ($infos->getClients() as $client) {
@@ -70,19 +77,15 @@ class OrdersController extends Controller
 
         $commandeModel = new CommandeModel();
 
-        $billetModel = $session->get('Billet');
-        $infosModel = $session->get('Infos');
-        $commande = $this->get('commande_assembler')->createCommande($commandeModel, $infosModel, $billetModel);
+        $commande = $this->get('commande_assembler')->createCommande($commandeModel, $infos, $billet);
         $session->set('Total', $commande->getTotalCde());
-
         if ($request->isMethod('POST')) {
             $em = $this->getDoctrine()->getManager();
-
             $token = $request->request->get('stripeToken');
-
             try {
                 $this->get('billetterie.stripe')->chargeCard($token, $commande->getTotalCde());
                 $commande->setEmail(\Stripe\Token::retrieve($token)->email);
+
                 $em->persist($commande);
                 $em->flush();
 
@@ -105,8 +108,15 @@ class OrdersController extends Controller
     public function emailAction(Request $request)
     {
         $session = $request->getSession();
+        if ($session->get('Infos')==null) {
+            return $this->redirectToRoute('louvre_billetterie_infos');
+        }
         $commandeId = $session->get('commandeid');
+        if ($commandeId==null) {
+            return $this->redirectToRoute('louvre_billetterie_commande');
+        }
         $commande = $this->getDoctrine()->getManager()->getRepository('LouvreBilletterieBundle:Commande')->find($commandeId);
+
 
         return $this->render('LouvreBilletterieBundle:Orders:email.html.twig', array(
             'coderesa' =>$commande->getCoderesa(),

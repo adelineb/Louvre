@@ -24,4 +24,5 @@ parameters:
 rules:
     symfony.obvious_csrf_key:
         enabled: true
-        
+    doctrine.database_query_contains_string_and_variable_concatenation:
+        enabled: true

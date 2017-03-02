@@ -15,7 +15,7 @@ class CommandeRepository extends \Doctrine\ORM\EntityRepository
     /**
     * @return Commande
     */
-    public function FindCodeResa($coderesa)
+    public function findCodeResa($coderesa)
      {
          $qb = $this
              ->createQueryBuilder('c')

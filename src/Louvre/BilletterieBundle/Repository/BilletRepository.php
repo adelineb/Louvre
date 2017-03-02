@@ -11,7 +11,7 @@ namespace Louvre\BilletterieBundle\Repository;
 
 class BilletRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function FindByDate($date)
+    public function findByDate($date)
     {
         $qb = $this
             ->createQueryBuilder('b')

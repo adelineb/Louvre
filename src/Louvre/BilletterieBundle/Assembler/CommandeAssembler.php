@@ -16,7 +16,6 @@ class CommandeAssembler
 {
     private $em;
 
-    //public function __construct(EntityManager $em, CommandeRepository $commandeRepository)
     public function __construct(EntityManager $em)
     {
         $this->em = $em;
@@ -28,7 +27,7 @@ class CommandeAssembler
     public function createCommande(CommandeModel $commandeModel, ClientsListeModel $infosModel, BilletModel $billetModel)
     {
         $coderesa = null;
-        while ($coderesa == null || $this->em->getRepository('LouvreBilletterieBundle:Commande')->FindCodeResa($coderesa) <> null) {
+        while ($coderesa == null || $this->em->getRepository('LouvreBilletterieBundle:Commande')->findCodeResa($coderesa) <> null) {
             $str = "ABCDEFGHIJKLMNOPQRSTUVWYZ";
             $str = str_split(str_shuffle($str), 4)[0];
             $coderesa = rand(1000,9999).$str;

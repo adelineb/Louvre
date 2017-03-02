@@ -16,7 +16,7 @@ class LouvreTarif
     public function calculTarif($client, $dateVisite, $typebillet)
     {
         $datejour = new \DateTime();
-        if ($client->tarifreduit == true)
+        if ($client->tarifreduit === true)
         {
             $tarif = $this->tarifRepository->getTarifReduit();
         }

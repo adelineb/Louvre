@@ -49,7 +49,7 @@ class Type_billet
      *
      * @param string $libelle
      *
-     * @return Typebillet
+     * @return Type_billet
      */
     public function setLibelle($libelle)
     {
@@ -71,7 +71,6 @@ class Type_billet
     public function setBillet(Billet $billet)
     {
         $this->billet = $billet;
-        //return $this;
     }
 
     public function getBillet()

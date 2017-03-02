@@ -52,7 +52,7 @@ class ControleDateValidator extends ConstraintValidator
         );
         
         $repository = $this->em->getRepository('LouvreBilletterieBundle:Billet');
-        $listReservations = $repository->FindByDate($value->getDate());
+        $listReservations = $repository->findByDate($value->getDate());
         $nbBillet= count($listReservations);
         $nbBillet += $value->getNbBillet();
 

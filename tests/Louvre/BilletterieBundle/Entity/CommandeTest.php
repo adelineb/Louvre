@@ -4,11 +4,6 @@ namespace tests\Louvre\BilletterieBundle\Entity;
 
 use Louvre\BilletterieBundle\Entity\Billet;
 use Louvre\BilletterieBundle\Entity\Commande;
-use Louvre\BilletterieBundle\Entity\Type_billet;
-use AGProject\BookingBundle\Entity\Tarif;
-
-//use AGProject\BookingBundle\Entity\Reservation;
-//use AGProject\BookingBundle\Entity\Visiteur;
 
 class CommandeTest extends \PHPUnit_Framework_TestCase
 {
